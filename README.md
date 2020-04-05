@@ -2,9 +2,9 @@
 
 ## Intro
 
-JavaScript has changed a lot since the days of jQuery. Early iterations of JavaScript could be discribed as lacking in functionality, and at the time the functionality it did have had mixed support in the popular browsers. jQuery was a library that added a lot of functionality on top of JavaScript, made it more readable (some might say) and allowed for more consistancy among how it was implemented in browsers.
+JavaScript has changed a lot since the days of jQuery. Early iterations of JavaScript could be discribed as lacking in functionality, and at the time the functionality it did have, had mixed support in the popular browsers. jQuery was a library that added a lot of functionality on top of JavaScript, made it more readable (some might say) and allowed for more consistancy among how it was implemented in browsers.
 
-Esentially, when ECMAScript 2015 (also known as ES6) was released, it included a **LOT** of new functionality that made an additional library like jQuery unnecessary. ES6 and onwards is well supported in modern browsers, however it is still best practice to transpile code down to ES5 with a tool like Babel. Luckily this is simple to implement into modern build tools / processes.
+Esentially, when ECMAScript 2015 (also known as ES6) was released, it included a **LOT** of new functionality that made an additional library like jQuery unnecessary. ES6 and onwards is well supported in modern browsers, however many developers still feel it is best practice to transpile code down to ES5 with a tool like Babel. Luckily this is simple to implement into modern build tools / processes.
 
 This is a guide I have wrote for myself and to anyone who wants to see what has changed in JavaScript since ES5, and what some of its modern features are.
 
@@ -16,6 +16,7 @@ Read on or jump to a section:
 1. [ECMAScript 2018 (ES9)](#es9)
 1. [ECMAScript 2019 (ES10)](#es10)
 1. [ECMAScript 2020 (ES11)](#es11)
+1. [Resources](#resources)
 
 ### <a id="es6"></a>ECMAScript 2015 (ES6)
 
@@ -59,7 +60,7 @@ function normalFunc(num) {
 The same function as an arrow function
 
 ```javascript
-const arrowFunc = num => num + 1;
+const arrowFunc = (num) => num + 1;
 ```
 
 2. No separate `this`
@@ -186,7 +187,7 @@ function User(name, email) {
   this.name = name;
   this.email = email;
 }
-User.prototype.someMethod = function() {};
+User.prototype.someMethod = function () {};
 ```
 
 Can now be written as:
@@ -284,8 +285,8 @@ dest.prop4; // "c"
 
 ```javascript
 [1, 3, 4, 2]
-  .find(x => x > 3) // 4
-  [(1, 3, 4, 2)].findIndex(x => x > 3); // 2
+  .find((x) => x > 3) // 4
+  [(1, 3, 4, 2)].findIndex((x) => x > 3); // 2
 ```
 
 3. `String.repeat()` gets passed a number of times to return a repeat of the string it is called on.
@@ -331,9 +332,7 @@ Goodbye `$.ajax()`! ES6 brings us built in promises, which are objects which rep
 There is a lot to know about promises and how they work, so of course [the MDN docs are a good place to start](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), but in essence you tell JavaScript to do something, and once done _then_ run some code, or if it fails, run some other code, a simplified example below:
 
 ```javascript
-doSomethingAsync()
-  .then(doSomethingOnSuccess)
-  .catch(doSomethingOnFail);
+doSomethingAsync().then(doSomethingOnSuccess).catch(doSomethingOnFail);
 ```
 
 Promises are a powerful and complex tool in JavaScript, and are especially useful for making calls to APIs, for example when using `fetch()` (browser API), as calling `fetch()` returns a promise.
@@ -372,7 +371,7 @@ An example of something you can do with this:
 ```javascript
 let britishPounds = new Intl.NumberFormat('en-GB', {
   style: 'currency',
-  currency: 'GBP'
+  currency: 'GBP',
 });
 britishPounds.format(10300); // "£10,300.00"
 ```
@@ -411,20 +410,18 @@ More useful features came along in ES8, arguably the most notable is `async awai
 
 #### Object.values
 
-An existing function called `Object.keys()` returns an array of the object's keys. `Object.values()` does the same but for the values.
+An existing function called `Object.keys()` returns an array of the object's keys. `Object.values()` is a new function introduced in ES8 that does the same but for the values of the object.
 
 ```javascript
 const countries = {
   europe: 'Italy',
   africa: 'Nigeria',
-  southAmerica: 'Brazil'
+  southAmerica: 'Brazil',
 };
 Object.values(countries); // ["Italy", "Nigeria", "Brazil"]
 ```
 
-## https://www.freecodecamp.org/news/here-are-examples-of-everything-new-in-ecmascript-2016-2017-and-2018-d52fa3b5a70e/
-
-This guide has been compiled from a number of resources listed below. Some bits of text and examples have been copied over.
+<a id="resources"></a>This guide has been compiled from a number of resources listed below. Some bits of text and examples have been copied over from the below resources.
 [FreeCodeCamp](https://www.freecodecamp.org/)
 [ES6-features](http://es6-features.org/#Constants)
 [Mozilla Development Network](https://developer.mozilla.org/en-US/)
