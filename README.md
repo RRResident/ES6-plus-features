@@ -1,3 +1,5 @@
+This is work in progress! There are still many details and sections missing, you may see a few TODO:'s dotted around as well.
+
 # ECMAScript 2015 (ES6) +
 
 ## Intro
