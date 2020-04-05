@@ -18,11 +18,11 @@ Read on or jump to a section:
 1. [ECMAScript 2020 (ES11)](#es11)
 1. [Resources](#resources)
 
-### <a id="es6"></a>ECMAScript 2015 (ES6)
+### ----- <a id="es6"></a>ECMAScript 2015 (ES6) -----
 
 There were a **LOT** of changes/features introduced with ES6, to focus on the more interesting features, I've marked them with `!!`, so you can search for that if you don't want to jump to the bigger features.
 
-#### Constants !!
+#### ----- Constants !!
 
 ```javascript
 var someVal = 123;
@@ -39,15 +39,15 @@ const someVal = 789; // error
 
 This only makes the variable itself immutable, not its content, so items in an array or object could be changed.
 
-#### Blocked scope variables with let !!
+#### ----- Blocked scope variables with let !!
 
 As well as `const`, ES6 also introduced another keyword for defining variables: `let`.
 Variables defined with `var` are scoped to the immediate function body, whilst `let` variables are scoped to the immidiate code block `{}`. There a few more differences of note, [a great Stackoverflow answer breaks this down in depth](https://stackoverflow.com/questions/762011/whats-the-difference-between-using-let-and-var). In essence, the function scope of `var` was a common cause of bugs in JavaScript and `let` was aimed at changing that.
 
-#### Arrow functions !!
+#### ----- Arrow functions !!
 
 Ever seen `thiz = this` or `that = this`?
-Arrow functions differ to functions in many ways, for a fuller and indepth explination [check out the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) but here I'll point out 2 things:
+Arrow functions differ to regular functions in many ways, for a fuller and indepth explination [check out the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) but here I'll point out 2 things:
 
 1. Shorthand syntax
 
@@ -66,7 +66,7 @@ const arrowFunc = (num) => num + 1;
 2. No separate `this`
    This was an issue when defining 'methods' of 'classes' in JavaScript, where `SomeClass.prototype.someFunction`'s `this` would refer to _itself_, its own `this` rather than the instance. Arrow functions have no `this`, and using `this` in an arrow function that is an object method will refer to the instance. Nice.
 
-#### Default parameter values
+#### ----- Default parameter values
 
 When defining a function you may want some defaults if an argument isn't passed.
 Before ES6 you would have had to write some `if` logic inside the function like
@@ -87,9 +87,9 @@ function f(a = 1, b, c) {
 }
 ```
 
-#### Rest parameter !!
+#### ----- Rest parameter !!
 
-'Rest' refers to remaining arguments passed to a function. In ES5 you'd end up with unreadable Array prototype functions to make this happen, but ES6:
+'Rest' refers to remaining arguments passed to a function. In ES5 you'd end up with messy unreadable Array prototype functions to make this happen, but ES6:
 
 ```javascript
 function f(a, b, ...restOfArgs) {
@@ -97,18 +97,18 @@ function f(a, b, ...restOfArgs) {
 }
 ```
 
-#### Spread operator !!
+#### ----- Spread operator !!
 
-Spread an array's items into a function arguments or another array
+Spread an array's items into a function's arguments or another array
 
 ```javascript
 const someArr = [1, 2, 3];
 const someOtherArr = [...someArr, 4, 5, 6]; // [1, 2, 3, 4, 5, 6]
 ```
 
-#### Template literals !!
+#### ----- Template literals !!
 
-In essense, this allows to pull values into strings (interpolation?) with a more comfortable syntax.
+In essense, this allows for interpolation, you can now pull values into strings directly with a more comfortable syntax. Instead of using single or double quote marks, template literals are written using backticks ` `` `
 
 ```javascript
 const name = 'Ross';
@@ -124,9 +124,19 @@ const city = 'London';
 const intro = `Hi I'm ${name} from ${city}`;
 ```
 
-Template literal's functionality goes beyond this into custom interpolation and raw string access. TODO:
+It also supports mutli line and indented strings, no need to add `\t` and so on. This leads to much cleaner and easier to read strings, especially if you are writing something like HTML in JavaScript:
 
-#### Enhanced object properties
+```javascript
+const htmlBlock = `
+<header>
+  <h1>${title}</h1><i class=${logoClass}></i>
+</header>
+`;
+```
+
+There are more things template literals can do, for more details [check out the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals);
+
+#### ----- Enhanced object properties
 
 Short syntax for object properties if you're setting it to a value with the same name:
 
@@ -146,7 +156,7 @@ const obj {
 }
 ```
 
-#### Destructuring
+#### ----- Destructuring
 
 In essence this is pulling values out of arrays and objects.
 
@@ -163,7 +173,7 @@ val2; // 456
 
 When destructuring you can include defaults for if a value isn't there. There is more to know about destructuring [if you are interested](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment).
 
-#### Modules !!
+#### ----- Modules !!
 
 Modules are a game changer, they allow for importing and exporting of values to and from modules without global namespace pollution.
 
@@ -178,7 +188,7 @@ myObj.a; // 1
 
 You can mark values for export and also mark default exports. Default exports can be imported in directly whilst other exports can be imported in using `{}`. Whilst browser support is still iffy for modules, it's common to use a bundler like [Webpack](https://webpack.js.org/) to bundle all your modules together for delivery to the browser.
 
-#### Classes
+#### ----- Classes
 
 Whilst ES6 classes are just syntactic sugar for prototype objects, they make creating objects or 'classes' in JavaScript more inline with other programming languages, there is even a constructor function to set properties of the 'class'.
 
@@ -219,7 +229,7 @@ class Phone {
 
 There is a lot to know about ES6 classes, [further reading here on the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes).
 
-#### Symbols
+#### ----- Symbols
 
 ES6 introduces another primitive type called symbols. They are essentially tokens that serve as unique IDs. You can create them like so
 
@@ -229,17 +239,17 @@ let sym2 = Symbol('sym');
 sym1 === sym2; // false
 ```
 
-Every symbol, whether passed (the optional) value is unique, comparing two of them will never return `true`. For more details on what they are and why one might use them, [check out the MDN docs](https://developer.mozilla.org/en-US/docs/Glossary/Symbol).
+Every symbol, whether passed (the optional) value or not, is unique, comparing two of them will never return `true`. For more details on what they are and why one might use them, [check out the MDN docs](https://developer.mozilla.org/en-US/docs/Glossary/Symbol).
 
-#### Iterators
-
-TODO:
-
-#### Generators
+#### ----- Iterators
 
 TODO:
 
-#### Set (data structure)
+#### ----- Generators
+
+TODO:
+
+#### ----- Set (data structure)
 
 JavaScript now has sets, these are lists of values similar to arrays but can only contain unique values. They have their own methods with names that differ from arrays for some reason.
 
@@ -251,19 +261,19 @@ s.add(1);
 s.size; // 2
 ```
 
-#### Map (data structure)
+#### ----- Map (data structure)
 
 TODO:
 
-#### Weakset and Weakmap (data structure)
+#### ----- Weakset and Weakmap (data structure)
 
 TODO:
 
-#### Typed arrays
+#### ----- Typed arrays
 
 TODO:
 
-#### New built in methods
+#### ----- New built in methods
 
 Adding functionality to existing types: objects, arrays, strings and numbers
 
@@ -326,7 +336,7 @@ Math.trunc(11.6); // 11
 
 9. `Math.sign()` method either returns a positive or a negative, in other words, if passed a positive number it will return `1`, or `-1` for a negative number. It will return `0` if passed a `0`, same with `-0`. Anything else will return `NaN`.
 
-#### Promises !!
+#### ----- Promises !! TODO:
 
 Goodbye `$.ajax()`! ES6 brings us built in promises, which are objects which represent the eventual completion (or faliure) of an ansychronous operation and its resulting value.
 There is a lot to know about promises and how they work, so of course [the MDN docs are a good place to start](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), but in essence you tell JavaScript to do something, and once done _then_ run some code, or if it fails, run some other code, a simplified example below:
@@ -346,11 +356,11 @@ fetch('http://www.someurl.com')
 These are simplifed examples, `then`s can be changed to allow for a lot of functionality to run on resolve/reject cases of a promise.
 The functions to run on resolve or reject are non blocking, and will only run once the call stack is clear and all normal code has finished running.
 
-#### Proxying
+#### ----- Proxying
 
 Using the `Proxy` object you can hook into runtime-level object meta-operations TODO:
 
-#### Reflecting object keys
+#### ----- Reflecting object keys
 
 `Reflect.ownKeys()` is a method that returns an array of the target object's own property keys.
 
@@ -359,7 +369,7 @@ const obj = { a: 1, b: 2 };
 Reflect.ownKeys(obj); // [a, b];
 ```
 
-#### International and localization support
+#### ----- International and localization support
 
 There is now an object `Intl` which provides language sensitive string comparison, number formatting, and date and time formatting. To read more about `Intl` [see the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl), the new constructors are:
 `Intl.Collator`
@@ -376,17 +386,17 @@ let britishPounds = new Intl.NumberFormat('en-GB', {
 britishPounds.format(10300); // "£10,300.00"
 ```
 
-#### Other
+#### ----- Other
 
 - Direct support for safe binary and octal literals.
 - Extended support for using unicode within strings and regular expressions.
 - Enhanced regular expressions.
 
-### <a id="es7"></a> ECMAScript 2016 (ES7)
+### ----- <a id="es7"></a> ECMAScript 2016 (ES7) -----
 
 ES7 was a _much_ smaller upgrade when compared to ES6, with only 2 new features to JavaScript.
 
-#### Array.includes
+#### ----- Array.includes
 
 This is a useful method for arrays that simply returns a true or false if a value is present in an array
 
@@ -396,19 +406,19 @@ names.includes('Ross'); // true
 names.includes('Max'); // false
 ```
 
-#### Exponentiation infix operator
+#### ----- Exponentiation infix operator
 
-Examples of infix operators in JavaScript would be `+`, `-` etc, this introduces `**` which is the exponent operation, a replacement for `Math.pow()`. In other words, a number times itself n times.
+Examples of infix operators in JavaScript would be `+`, `-` etc, this introduces `**` which is the exponent operation, a replacement for `Math.pow()`. In other words, a number times itself `n` times.
 
 ```javascript
 2 ** 3; // 8, same as 2 * 2 * 2
 ```
 
-### <a id="es8"></a> ECMAScript 2017 (ES8)
+### ----- <a id="es8"></a> ECMAScript 2017 (ES8) -----
 
 More useful features came along in ES8, arguably the most notable is `async await`.
 
-#### Object.values
+#### ----- Object.values
 
 An existing function called `Object.keys()` returns an array of the object's keys. `Object.values()` is a new function introduced in ES8 that does the same but for the values of the object.
 
@@ -421,7 +431,80 @@ const countries = {
 Object.values(countries); // ["Italy", "Nigeria", "Brazil"]
 ```
 
+#### ----- Object.entries
+
+`Object.entries()` is a function that can get you the keys _and_ values out of an object (unlike the above mentioned funtions which get one or the other). It will return an array of arrays, each of which will be each of your object's key and value pairs.
+
+```javascript
+const someObj = { a: 1, b: 2, c: 3 };
+Object.entries(someObj); // [[a, '1'], ['b', 2], ['c', 3]]
+```
+
+This makes it useful for looping over both using something like the below:
+
+```javascript
+for (let [key, value] of Object.entries(someObj)) {
+  // ...
+}
+```
+
+#### ----- String padding
+
+Two new functions for strings allow for padding
+`padStart()`
+and
+`padEnd()`
+Both of these functions take 2 arguments, the first being the length the string should reach (target length), the second argument is an optional string to pad it with, `" "` by default.
+
+```javascript
+let codes = ['3', '45', '722'];
+
+codes.map((code) => {
+  code = code.padStart(5, '0');
+});
+codes;
+/*
+ * 00003
+ * 00045
+ * 00722
+ */
+```
+
+#### ----- Object.getOwnPropertyDescriptors
+
+`Object.getOwnPropertyDescriptors()` can be passed an object, the result will be an object that has all own property descriptors of the passed object. For more details [check the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptors), but below is a basic example of how you can access some details of properties of the object:
+
+```javascript
+const person = {
+  name: 'John',
+  age: 44,
+};
+
+const personDescriptors = Object.getOwnPropertyDescriptors(person);
+personDescriptors.name.writable; // true
+personDescriptors.age.value; // 44
+```
+
+#### ----- Trailing commas in function parameters
+
+This is simply a change to function parameter syntax, you are now allowed to have a comma after the last parameter
+
+```javascript
+function trailingCommas(
+  arg1,
+  arg2,
+  arg3 // This won't error
+) {
+  // ...
+}
+```
+
+#### ----- Async await !!
+
+This is considered the most important update of ECMAScript 2017. TODO:
+
 <a id="resources"></a>This guide has been compiled from a number of resources listed below. Some bits of text and examples have been copied over from the below resources.
-[FreeCodeCamp](https://www.freecodecamp.org/)
-[ES6-features](http://es6-features.org/#Constants)
-[Mozilla Development Network](https://developer.mozilla.org/en-US/)
+
+- [FreeCodeCamp](https://www.freecodecamp.org/)
+- [ES6-features](http://es6-features.org/#Constants)
+- [Mozilla Development Network](https://developer.mozilla.org/en-US/)
