@@ -190,7 +190,7 @@ myObj.a; // 1
 
 You can mark values for export and also mark default exports. Default exports can be imported in directly whilst other exports can be imported in using `{}`. Whilst browser support is still iffy for modules, it's common to use a bundler like [Webpack](https://webpack.js.org/) to bundle all your modules together for delivery to the browser.
 
-#### ----- Classes
+#### ----- Classes !!
 
 Whilst ES6 classes are just syntactic sugar for prototype objects, they make creating objects or 'classes' in JavaScript more inline with other programming languages, there is even a constructor function to set properties of the 'class'.
 
@@ -338,7 +338,7 @@ Math.trunc(11.6); // 11
 
 9. `Math.sign()` method either returns a positive or a negative, in other words, if passed a positive number it will return `1`, or `-1` for a negative number. It will return `0` if passed a `0`, same with `-0`. Anything else will return `NaN`.
 
-#### ----- Promises !! TODO:
+#### ----- Promises !!
 
 Goodbye `$.ajax()`! ES6 brings us built in promises, which are objects which represent the eventual completion (or faliure) of an ansychronous operation and its resulting value.
 There is a lot to know about promises and how they work, so of course [the MDN docs are a good place to start](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), but in essence you tell JavaScript to do something, and once done _then_ run some code, or if it fails, run some other code, a simplified example below:
@@ -355,8 +355,33 @@ fetch('http://www.someurl.com')
   .catch(logErrorMessage);
 ```
 
-These are simplifed examples, `then`s can be changed to allow for a lot of functionality to run on resolve/reject cases of a promise.
+These are simplifed examples, `then`s can be chained to allow for a lot of functionality to run on resolve/reject cases of a promise.
 The functions to run on resolve or reject are non blocking, and will only run once the call stack is clear and all normal code has finished running.
+
+You can create your own promise objects, below is a simple example where a "call" for a user from a database is made inside a promise. If the call is successful, we call resolve and pass the data we retrieve. If the call fails for some reason, we pass in an error message.
+Further down we add some functionality for what should happen should the promise succeed or fail. This code will happen once it get's resolved and the main call stack is clear.
+
+```javascript
+let getData = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    const exampleData = { name: 'Ross', job: 'Frontend developer' };
+    let somethingWrong = false;
+    somethingWrong ? reject('Error') : resolve(exampleData);
+  }, 500);
+});
+
+getData
+  .then((data) => {
+    console.log(data.name);
+  })
+  .catch((errorMsg) => {
+    console.log(errorMsg);
+  });
+
+// Run other code ...
+
+// "Ross"
+```
 
 #### ----- Proxying
 
