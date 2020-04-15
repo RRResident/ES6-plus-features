@@ -8,7 +8,7 @@ JavaScript has changed a lot since the days of jQuery. Early iterations of JavaS
 
 Esentially, when ECMAScript 2015 (also known as ES6) was released, it included a **LOT** of new functionality that made an additional library like jQuery unnecessary. ES6 and onwards is well supported in modern browsers, however many developers still feel it is best practice to transpile code down to ES5 with a tool like Babel. Luckily this is simple to implement into modern build tools / processes.
 
-This is a guide I have wrote for myself and to anyone who wants to see what has changed in JavaScript since ES5, and what some of its modern features are.
+This is a guide I have wrote for myself and to anyone who wants to see what has changed in JavaScript since ES5, and what these modern features are.
 
 Read on or jump to a section:
 
@@ -20,9 +20,9 @@ Read on or jump to a section:
 1. [ECMAScript 2020 (ES11)](#es11)
 1. [Resources](#resources)
 
-### ----- <a id="es6"></a>ECMAScript 2015 (ES6) -----
+### << <a id="es6"></a>ECMAScript 2015 (ES6) >>
 
-There were a **LOT** of changes/features introduced with ES6, to focus on the more interesting features, I've marked them with `!!`, so you can search for that if you don't want to jump to the bigger features.
+There were a **LOT** of changes/features introduced with ES6, to focus on the more interesting features, I've marked them with `!!`, so you can search for that if you want to jump to the bigger features.
 
 #### ----- Constants !!
 
@@ -39,7 +39,7 @@ someVal = 456; // error
 const someVal = 789; // error
 ```
 
-This only makes the variable itself immutable, not its content, so items in an array or object could be changed.
+This only makes the variable itself immutable, not its content, so items in an array or object defined with `const` could be changed.
 
 #### ----- Blocked scope variables with let !!
 
@@ -64,6 +64,8 @@ The same function as an arrow function
 ```javascript
 const arrowFunc = (num) => num + 1;
 ```
+
+The parenthesis around the parameter are optional if there is only one, the brackets are also optional around the function body as is the `return` keyword if you have a simple one line code body.
 
 2. No separate `this`
    This was an issue when defining 'methods' of 'classes' in JavaScript, where `SomeClass.prototype.someFunction`'s `this` would refer to _itself_, its own `this` rather than the instance. Arrow functions have no `this`, and using `this` in an arrow function that is an object method will refer to the instance. Nice.
@@ -330,7 +332,7 @@ It can return `true` or `false`.
 
 7. `Number.EPSIOLON` isn't a method, it holds a value which is `2.2204460492503130808472633361816E-16`, which represents the difference between 1 and the smallest floating point number greater than 1.
 
-8. `Math.trunc()` is a method that drops the fractional part of a number, like a round down.
+8. `Math.trunc()` is a method that drops the fractional part of a number, like a round down to a whole number.
 
 ```javascript
 Math.trunc(11.6); // 11
@@ -340,7 +342,7 @@ Math.trunc(11.6); // 11
 
 #### ----- Promises !!
 
-Goodbye `$.ajax()`! ES6 brings us built in promises, which are objects which represent the eventual completion (or faliure) of an ansychronous operation and its resulting value.
+Goodbye `$.ajax()`! ES6 brings us built in promises, which are objects that represent the eventual completion (or failure) of an ansychronous operation and its resulting value.
 There is a lot to know about promises and how they work, so of course [the MDN docs are a good place to start](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), but in essence you tell JavaScript to do something, and once done _then_ run some code, or if it fails, run some other code, a simplified example below:
 
 ```javascript
@@ -419,7 +421,7 @@ britishPounds.format(10300); // "£10,300.00"
 - Extended support for using unicode within strings and regular expressions.
 - Enhanced regular expressions.
 
-### ----- <a id="es7"></a> ECMAScript 2016 (ES7) -----
+### << <a id="es7"></a> ECMAScript 2016 (ES7) >>
 
 ES7 was a _much_ smaller upgrade when compared to ES6, with only 2 new features to JavaScript.
 
@@ -441,7 +443,7 @@ Examples of infix operators in JavaScript would be `+`, `-` etc, this introduces
 2 ** 3; // 8, same as 2 * 2 * 2
 ```
 
-### ----- <a id="es8"></a> ECMAScript 2017 (ES8) -----
+### << <a id="es8"></a> ECMAScript 2017 (ES8) >>
 
 More useful features came along in ES8, arguably the most notable is `async await`.
 
@@ -520,7 +522,7 @@ This is simply a change to function parameter syntax, you are now allowed to hav
 function trailingCommas(
   arg1,
   arg2,
-  arg3 // This won't error
+  arg3 // A comma here won't error
 ) {
   // ...
 }
@@ -528,9 +530,124 @@ function trailingCommas(
 
 #### ----- Async await !!
 
-This is considered the most important update of ECMAScript 2017. TODO:
+This is considered the most important update of ECMAScript 2017, and for good reason. They build on top of the JavaScript solution for asynchronous programming - Promises.
 
-<a id="resources"></a>This guide has been compiled from a number of resources listed below. Some bits of text and examples have been copied over from the below resources.
+`async` and `await` are two keywords we can use to control our asynchronous code.
+When I create an asynchronous function, I can mark it as `async`, this means the function will implicitly return a promise. `await` can only be used insie `async` functions, it will wait for a promise to resolve before doing something. Essentially it will pause your code on that line until the promise fulfills.
+
+```javascript
+const makeRequest = async () => {
+  const data = await getData();
+
+  doSomethingWithData(data);
+};
+```
+
+Syntactically `async await` is much easier to understand, its code is cleaner, and it is easier to debug. For more information about this, [checkout the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function).
+
+#### ----- Shared memory and atomics
+
+// TODO
+To read about this check out
+[Atomics on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics)
+[SharedArrayBuffer on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer)
+
+### << <a id="es9"></a> ECMAScript 2018 (ES9) >>
+
+ES9 brought in some nice updates to JS
+
+#### ----- Regex updates
+
+There are 4 changes to regex in JS with ES9:
+
+1. `s` flag
+   To add to the regex flags like `g` (matches multple times), or `i` (makes regex case insensitive), we now have `s` which causes the `.` to also match new line characters.
+2. Named capture groups // TODO:
+3. Look behind assertions. // TODO:
+4. Unicode property escapes
+   You can now search for special characters by mentioning their unicode character property inside of a `/p{}`. Unicode characters have a lot of properties, for example `Letter` matches any unicode that represents a letter in any language, so we could write `/p{Letter}` to match these.
+   <a id="resources"></a>This guide has been compiled from a number of resources listed below. Some bits of text and examples have been copied over from the below resources.
+
+#### ----- Object rest and spread properties
+
+Rest and spread are already available inside arrays, now that functionality extends to objects. An example of how we can use the rest property when destructuring objects:
+
+```javascript
+let { a, ...rest } = { a: '1', b: '2', c: '3' };
+a; // 1
+rest; // {b: "2", c: "3"}
+```
+
+And the spread property to copy one object's properties into another
+
+```javascript
+let originalObj = { a: '1', b: '2', c: '3' };
+let newObj = { ...originalObj, d: '4' };
+newObj; // { a: '1', b: '2', c: '3', d: '4' }
+```
+
+#### ----- Promise finally
+
+In addition to `.catch()` and `.then()`, to avoid duplicate code inside these handlers, we now have access to `.finally()` which returns a promise and takes a callback function.
+
+```javascript
+fetch('http://somesite.com')
+  .then((data) => console.log(data))
+  .catch((error) => console.log(error))
+  .finally(() => console.log('Done!'));
+```
+
+More details about `finally()` [here on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/finally).
+
+#### ----- Asynchronous iteration
+
+TODO:
+[More details on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of).
+
+### << <a id="es10"></a> ECMAScript 2019 (ES10) >>
+
+This is currently the latest interation of JavaScript released in June 2019 and includes some nice additions to the language.
+
+#### ----- Bigint
+
+Before ES10, the biggest number supported in JavaScript was 9007199254740991. Now with support for big ints, 2⁵³ numbers are supported, these are bigints and are a new primitive. Appending 'n' will create a bigint.
+
+```javascript
+const a = 1n;
+typeof a; // "bigint"
+```
+
+There is a lot more to know about bigints if you'd be using them in your program, [check out the MDN docs for all the details](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt);
+
+#### ----- String.prototype.matchAll()
+
+TODO:
+
+#### ----- Saving dynamic imports to variables
+
+Imports are not new, but being able to assign dynamic (`import()`) imports to variables is. Say we want to load in a module when a button is clicked, and use a function from that module, we could do the following:
+
+```javascript
+button.addEventListener('click', async () => {
+  const module = await import('./path/to/module.js');
+  module.buttonClick();
+});
+```
+
+[More details on imports on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
+
+#### ----- Array.prototype.flat()
+
+You can now easily flatted nested arrays, the `flat` function takes a depth. You can also pass it `infinity` to completely flatten an array.
+
+```javascript
+let nestedArray = [1, [1, 2, 3, [1, [1, 2, [3, [4]]]]]];
+nestedArray.flat(infinity); // [1, 1, 2, 3 1, 1, 2, 1, 4]
+```
+
+#### ----- Object.fromEntries()
+
+`Object.fromEntries` creates an object from key-value pairs
 
 - [FreeCodeCamp](https://www.freecodecamp.org/)
 - [ES6-features](http://es6-features.org/#Constants)
