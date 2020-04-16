@@ -4,7 +4,7 @@ This is work in progress! There are still many details and sections missing, you
 
 ## Intro
 
-JavaScript has changed a lot since the days of jQuery. Early iterations of JavaScript could be discribed as lacking in functionality, and at the time the functionality it did have, had mixed support in the popular browsers. jQuery was a library that added a lot of functionality on top of JavaScript, made it more readable (some might say) and allowed for more consistancy among how it was implemented in browsers.
+JavaScript has changed a lot since the days of jQuery. Early iterations of JavaScript could be described as lacking in functionality, and at the time the functionality it did have, had mixed support in the popular browsers. jQuery was a library that added a lot of functionality on top of JavaScript, made it more readable (some might say) and allowed for more consistancy among how it was implemented in browsers.
 
 Esentially, when ECMAScript 2015 (also known as ES6) was released, it included a **LOT** of new functionality that made an additional library like jQuery unnecessary. ES6 and onwards is well supported in modern browsers, however many developers still feel it is best practice to transpile code down to ES5 with a tool like Babel. Luckily this is simple to implement into modern build tools / processes.
 
@@ -245,13 +245,69 @@ sym1 === sym2; // false
 
 Every symbol, whether passed (the optional) value or not, is unique, comparing two of them will never return `true`. For more details on what they are and why one might use them, [check out the MDN docs](https://developer.mozilla.org/en-US/docs/Glossary/Symbol).
 
-#### ----- Iterators
+#### ----- Iterators and generators
 
-TODO:
+Iterators are new constructs (in JavaScript) for iterating across data, giving us the ability to set up custom iterators where we can access the inner data itself with `let i of foo` rather than looping with the standard `for`. This means not having to call items by their index.
+An example:
 
-#### ----- Generators
+```javascript
+for (let letter of ['a', 'b', 'c']) {
+  console.log(letter);
+}
+// a, b, c
+```
 
-TODO:
+This looks like regular looping, but under the hood, this construct lets the object decide what data it gives on when iterated. We can pull out this functionality to see what is happening:
+
+```javascript
+let letters = ['a', 'b', 'c'];
+let lettersIterator = [Symbol.iterator]();
+lettersIterator.next(); // {value: "a", done: false}
+// ...
+lettersIterator.next(); // {value: undefined, done: true}
+```
+
+The iterations return an object that contains the value and a `done` property that returns true when iterating has complete. See below a more complex object which is an iterable.
+
+```javascript
+const iterable = {
+  [Symbol.iterator]() {
+    let step = 0;
+    const iterator = {
+      next() {
+        step++;
+        if (step === 1) {
+          return { value: 'This', done: false };
+        } else if (step === 2) {
+          return { value: 'is', done: false };
+        } else if (step === 3) {
+          return { value: 'iterable', done: false };
+        }
+        return { value: undefined, done: true };
+      },
+    };
+    return iterator;
+  },
+};
+
+let iterator = iterable[Symbol.iterator]();
+
+iterator.next(); // { value: 'This', done: false }
+```
+
+Generator functions are created with `function*`, and returns a generator object. These functions can be 'paused' between returning values using the `yield` keyword.
+
+```javascript
+function* generatorFunc(i) {
+  yield i;
+  yield i + 1;
+}
+
+let generator = generatorFunc(2); // Creates generator object
+generator.next(); // {value: 5, done: false}
+```
+
+There is a lot to know here, for more reading [check out the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators).
 
 #### ----- Set (data structure)
 
@@ -267,11 +323,22 @@ s.size; // 2
 
 #### ----- Map (data structure)
 
-TODO:
+A map object, like normal objects, holds key-value pairs and remembers the order of insertion, it takes any value as keys or values, making them different from normal objects.
+
+```javascript
+const mapObj = new Map();
+mapObj.set(Symbol(), 1);
+map.Obj.set({ keyName: 'key' }, 'value');
+```
 
 #### ----- Weakset and Weakmap (data structure)
 
-TODO:
+These are similar, but slightly different to `Map` and `Set`.
+`WeakSet` ([more details here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet)) are collections of **objects only**, and cannot take other types like normal `Set`s can. They are also 'weak' links, for example if you have an object created in your global context, and set that as an item in the `WeakSet` with `weakset.add(globalObj)`, and _no other_ code referenced that `globalObject`, then it could be garbage collected. This can be helpful when considering memory allocation.
+
+`WeakMap` are similar with how their 'weak' link works without outside objects, and they also can only have objects as their keys.
+[MDN docs on WeakMap](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
+[A good article explaining the difference betwee Map and WeakMap](https://www.mattzeunert.com/2017/01/31/weak-maps.html)
 
 #### ----- Typed arrays
 
