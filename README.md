@@ -8,7 +8,7 @@ JavaScript has changed a lot since the days of jQuery. Early iterations of JavaS
 
 Esentially, when ECMAScript 2015 (also known as ES6) was released, it included a **LOT** of new functionality that made an additional library like jQuery unnecessary. ES6 and onwards is well supported in modern browsers, however many developers still feel it is best practice to transpile code down to ES5 with a tool like Babel. Luckily this is simple to implement into modern build tools / processes.
 
-This is a guide I have wrote for myself and to anyone who wants to see what has changed in JavaScript since ES5, and what these modern features are.
+This is a guide I have wrote for myself and to anyone who wants to see what has changed in JavaScript since ES5, and what these modern features are. Most of the features will have links to the Mozilla Development Network page shortened to MDN.
 
 Read on or jump to a section:
 
@@ -25,6 +25,8 @@ Read on or jump to a section:
 There were a **LOT** of changes/features introduced with ES6, to focus on the more interesting features, I've marked them with `!!`, so you can search for that if you want to jump to the bigger features.
 
 #### ----- Constants !!
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const)
 
 ```javascript
 var someVal = 123;
@@ -43,13 +45,17 @@ This only makes the variable itself immutable, not its content, so items in an a
 
 #### ----- Blocked scope variables with let !!
 
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let)
+
 As well as `const`, ES6 also introduced another keyword for defining variables: `let`.
 Variables defined with `var` are scoped to the immediate function body, whilst `let` variables are scoped to the immidiate code block `{}`. There a few more differences of note, [a great Stackoverflow answer breaks this down in depth](https://stackoverflow.com/questions/762011/whats-the-difference-between-using-let-and-var). In essence, the function scope of `var` was a common cause of bugs in JavaScript and `let` was aimed at changing that.
 
 #### ----- Arrow functions !!
 
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+
 Ever seen `thiz = this` or `that = this`?
-Arrow functions differ to regular functions in many ways, for a fuller and indepth explination [check out the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) but here I'll point out 2 things:
+Arrow functions differ to regular functions in many ways, but here I'll point out 2 things:
 
 1. Shorthand syntax
 
@@ -72,6 +78,8 @@ The parenthesis around the parameter are optional if there is only one, the brac
 
 #### ----- Default parameter values
 
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)
+
 When defining a function you may want some defaults if an argument isn't passed.
 Before ES6 you would have had to write some `if` logic inside the function like
 
@@ -93,6 +101,8 @@ function f(a = 1, b, c) {
 
 #### ----- Rest parameter !!
 
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters)
+
 'Rest' refers to remaining arguments passed to a function. In ES5 you'd end up with messy unreadable Array prototype functions to make this happen, but ES6:
 
 ```javascript
@@ -103,6 +113,8 @@ function f(a, b, ...restOfArgs) {
 
 #### ----- Spread operator !!
 
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
+
 Spread an array's items into a function's arguments or another array
 
 ```javascript
@@ -112,7 +124,9 @@ const someOtherArr = [...someArr, 4, 5, 6]; // [1, 2, 3, 4, 5, 6]
 
 #### ----- Template literals !!
 
-In essense, this allows for interpolation, you can now pull values into strings directly with a more comfortable syntax. Instead of using single or double quote marks, template literals are written using backticks ` `` `
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+
+In essense, this allows for interpolation, you can now pull values and expressions into strings directly with a more comfortable syntax. Instead of using single or double quote marks, template literals are written using backticks ` `` `
 
 ```javascript
 const name = 'Ross';
@@ -138,7 +152,11 @@ const htmlBlock = `
 `;
 ```
 
-There are more things template literals can do, for more details [check out the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals);
+You can also use them to access raw strings like so;
+
+```javascript
+console.log(String.raw`hello\nnot a newline`); // hellonot a newline
+```
 
 #### ----- Enhanced object properties
 
@@ -162,7 +180,9 @@ const obj {
 
 #### ----- Destructuring
 
-In essence this is pulling values out of arrays and objects.
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+
+In essence this is pulling values out of arrays and objects directly into variables/constants. Below we declare an array and an object, and pull out values into constants.
 
 ```javascript
 const arr = [1, 2, 3];
@@ -175,9 +195,11 @@ const { val2 } = obj;
 val2; // 456
 ```
 
-When destructuring you can include defaults for if a value isn't there. There is more to know about destructuring [if you are interested](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment).
+When destructuring you can include defaults for if a value isn't there. For more details check out the MDN docs.
 
 #### ----- Modules !!
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
 
 Modules are a game changer, they allow for importing and exporting of values to and from modules without global namespace pollution.
 
@@ -193,6 +215,8 @@ myObj.a; // 1
 You can mark values for export and also mark default exports. Default exports can be imported in directly whilst other exports can be imported in using `{}`. Whilst browser support is still iffy for modules, it's common to use a bundler like [Webpack](https://webpack.js.org/) to bundle all your modules together for delivery to the browser.
 
 #### ----- Classes !!
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
 
 Whilst ES6 classes are just syntactic sugar for prototype objects, they make creating objects or 'classes' in JavaScript more inline with other programming languages, there is even a constructor function to set properties of the 'class'.
 
@@ -231,9 +255,11 @@ class Phone {
 }
 ```
 
-There is a lot to know about ES6 classes, [further reading here on the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes).
+There is a lot to know about ES6 classes, refer to the MDN docs.
 
 #### ----- Symbols
+
+[MDN](https://developer.mozilla.org/en-US/docs/Glossary/Symbol)
 
 ES6 introduces another primitive type called symbols. They are essentially tokens that serve as unique IDs. You can create them like so
 
@@ -243,11 +269,13 @@ let sym2 = Symbol('sym');
 sym1 === sym2; // false
 ```
 
-Every symbol, whether passed (the optional) value or not, is unique, comparing two of them will never return `true`. For more details on what they are and why one might use them, [check out the MDN docs](https://developer.mozilla.org/en-US/docs/Glossary/Symbol).
+Every symbol, whether passed (the optional) value or not, is unique, comparing two of them will never return `true`.
 
 #### ----- Iterators and generators
 
-Iterators are new constructs (in JavaScript) for iterating across data, giving us the ability to set up custom iterators where we can access the inner data itself with `let i of foo` rather than looping with the standard `for`. This means not having to call items by their index.
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)
+
+Iterators are new constructs (in JavaScript) for iterating across data, giving us the ability to access data via an interface which determins how we can iterate over the object.
 An example:
 
 ```javascript
@@ -257,7 +285,7 @@ for (let letter of ['a', 'b', 'c']) {
 // a, b, c
 ```
 
-This looks like regular looping, but under the hood, this construct lets the object decide what data it gives on when iterated. We can pull out this functionality to see what is happening:
+This looks like regular looping, but under the hood, this construct lets the object decide what data it gives on when iterated, in this case it is a normal array so it just pulls out the 'next' item. This is really calling a `.next()`, a built in method that returns the next item in the array. `String`, `Array`, `Map`, `Set` all have this functionality built in, but normal `Object` do not.
 
 ```javascript
 let letters = ['a', 'b', 'c'];
@@ -267,35 +295,36 @@ lettersIterator.next(); // {value: "a", done: false}
 lettersIterator.next(); // {value: undefined, done: true}
 ```
 
-The iterations return an object that contains the value and a `done` property that returns true when iterating has complete. See below a more complex object which is an iterable.
+The iterations return an iterator object that contains the value and a `done` property that returns true when iterating has complete. We can now also create custom interators for our objects. They are objects with one property: `[Symbol.iterator]`, which will resolve to a unique value, unable to be duplicated. This property's value is a function which returns an object. To call this, we would
 
 ```javascript
+const characters = {
+  nintendo: 'Mario',
+  microsoft: 'Master Chief,
+  sega: 'Sonic'
+}
+
+let count = 0;
 const iterable = {
   [Symbol.iterator]() {
-    let step = 0;
-    const iterator = {
+    return {
       next() {
-        step++;
-        if (step === 1) {
-          return { value: 'This', done: false };
-        } else if (step === 2) {
-          return { value: 'is', done: false };
-        } else if (step === 3) {
-          return { value: 'iterable', done: false };
+        count++;
+        switch(count) {
+          case 1:
+            return {value: chracters.nintendo, done: false;}
+            // ...
         }
-        return { value: undefined, done: true };
-      },
-    };
-    return iterator;
-  },
+      }
+    }
 };
 
-let iterator = iterable[Symbol.iterator]();
+let iterable = iterator[Symbol.iterator]();
 
-iterator.next(); // { value: 'This', done: false }
+iterable.next(); // { value: 'This', done: false }
 ```
 
-Generator functions are created with `function*`, and returns a generator object. These functions can be 'paused' between returning values using the `yield` keyword.
+Generators are in essence functions that are wrappers for iterators. They are created with `function*`, and returns a generator object. These functions can be 'paused' between returning values using the `yield` keyword.
 
 ```javascript
 function* generatorFunc(i) {
@@ -307,9 +336,9 @@ let generator = generatorFunc(2); // Creates generator object
 generator.next(); // {value: 5, done: false}
 ```
 
-There is a lot to know here, for more reading [check out the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators).
-
 #### ----- Set (data structure)
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)
 
 JavaScript now has sets, these are lists of values similar to arrays but can only contain unique values. They have their own methods with names that differ from arrays for some reason.
 
@@ -323,6 +352,8 @@ s.size; // 2
 
 #### ----- Map (data structure)
 
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
+
 A map object, like normal objects, holds key-value pairs and remembers the order of insertion, it takes any value as keys or values, making them different from normal objects.
 
 ```javascript
@@ -333,14 +364,18 @@ map.Obj.set({ keyName: 'key' }, 'value');
 
 #### ----- Weakset and Weakmap (data structure)
 
+[MDN weakset](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet)
+[MDN weakmap](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
+
 These are similar, but slightly different to `Map` and `Set`.
-`WeakSet` ([more details here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet)) are collections of **objects only**, and cannot take other types like normal `Set`s can. They are also 'weak' links, for example if you have an object created in your global context, and set that as an item in the `WeakSet` with `weakset.add(globalObj)`, and _no other_ code referenced that `globalObject`, then it could be garbage collected. This can be helpful when considering memory allocation.
+`WeakSet`s are collections of **objects only**, and cannot take other types like normal `Set`s can. They are also 'weak' links, for example if you have an object created in your global context, and set that as an item in the `WeakSet` with `weakset.add(globalObj)`, and _no other_ code referenced that `globalObject`, then it could be garbage collected. This can be helpful when considering memory allocation.
 
 `WeakMap` are similar with how their 'weak' link works without outside objects, and they also can only have objects as their keys.
-[MDN docs on WeakMap](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
-[A good article explaining the difference betwee Map and WeakMap](https://www.mattzeunert.com/2017/01/31/weak-maps.html)
+[A good article explaining the difference betwee Map and WeakMap](https://www.mattzeunert.com/2017/01/31/weak-maps.html).
 
 #### ----- Typed arrays
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray)
 
 TODO:
 
@@ -409,8 +444,10 @@ Math.trunc(11.6); // 11
 
 #### ----- Promises !!
 
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+
 Goodbye `$.ajax()`! ES6 brings us built in promises, which are objects that represent the eventual completion (or failure) of an ansychronous operation and its resulting value.
-There is a lot to know about promises and how they work, so of course [the MDN docs are a good place to start](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), but in essence you tell JavaScript to do something, and once done _then_ run some code, or if it fails, run some other code, a simplified example below:
+There is a lot to know about promises, but in essence you tell JavaScript to do something, and once done _then_ run some code, or if it fails, run some other code, a simplified example below:
 
 ```javascript
 doSomethingAsync().then(doSomethingOnSuccess).catch(doSomethingOnFail);
@@ -458,7 +495,7 @@ Using the `Proxy` object you can hook into runtime-level object meta-operations 
 
 #### ----- Reflecting object keys
 
-`Reflect.ownKeys()` is a method that returns an array of the target object's own property keys.
+`Reflect.ownKeys()` is a method that returns an array of the target object's own property keys. TODO:
 
 ```javascript
 const obj = { a: 1, b: 2 };
@@ -467,7 +504,9 @@ Reflect.ownKeys(obj); // [a, b];
 
 #### ----- International and localization support
 
-There is now an object `Intl` which provides language sensitive string comparison, number formatting, and date and time formatting. To read more about `Intl` [see the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl), the new constructors are:
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
+
+There is now an object `Intl` which provides language sensitive string comparison, number formatting, and date and time formatting. The new constructors are:
 `Intl.Collator`
 `Intl.NumberFormat`
 `Intl.NumberFormat`
@@ -599,17 +638,21 @@ function trailingCommas(
 
 This is considered the most important update of ECMAScript 2017, and for good reason. They build on top of the JavaScript solution for asynchronous programming - Promises.
 
-`async` and `await` are two keywords we can use to control our asynchronous code.
-When I create an asynchronous function, I can mark it as `async`, this means the function will implicitly return a promise. `await` can only be used insie `async` functions, it will wait for a promise to resolve before doing something. Essentially it will pause your code on that line until the promise fulfills.
+`async` and `await` are two new keywords we can use to control the flow of our asynchronous code.
+We need to keep our code in a function, we can use the `async` keyword in front of the function declaration to create an `async` function. These functions always return a promise.
 
 ```javascript
 const makeRequest = async () => {
-  const data = await getData();
+  const data = await getData(); // getdata() returns a promise
 
   doSomethingWithData(data);
 };
+
+// makeRequest returns a promise, which can be accessed with .then()
+makeRequest().then((result) => console.log(result));
 ```
 
+In the above example, the `await` keyword 'awaits' for the promise to resolve, it then saves the resolved data into the constant on the left.
 Syntactically `async await` is much easier to understand, its code is cleaner, and it is easier to debug. For more information about this, [checkout the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function).
 
 #### ----- Shared memory and atomics
