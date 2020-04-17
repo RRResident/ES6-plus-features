@@ -512,16 +512,58 @@ getData
 
 #### ----- Proxying
 
-Using the `Proxy` object you can hook into runtime-level object meta-operations TODO:
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
 
-#### ----- Reflecting object keys
+The `Proxy` object is used to define custom behavior for fundamental operations in JavaScript (e.g. property lookup, assignment, enumeration, function invocation, etc). Let's say we wish to make a person object, with properties that can only have certain value types.
+When creating a proxy instance, you need to pass it two things:
 
-`Reflect.ownKeys()` is a method that returns an array of the target object's own property keys. TODO:
+- the target object to wrap with `Proxy`
+- The handler object which has functions that define the proxy objects behavior
+
+The handler object can add custom functionality via its methods known as 'traps', below we'll use `set`, which is a trap for setting property values.
+
+```javascript
+const handlerObject = {
+  set: (obj, prop, value) => {
+    if (prop === 'age') {
+      if (!Number.isInteger(value)) {
+        throw new TypeError('Age is not an integer');
+      }
+
+      if (value > 200) {
+        throw new RangeError('The age is too high');
+      }
+    }
+
+    obj[prop] = value; // If all tests pass, add the key-value into the object
+
+    return true; // indicate success
+  },
+};
+
+const person = new Proxy({}, handlerObject);
+person.age = 100; // Passes validation
+person.age = '100'; // returns TypeError - 'Age is not an integer'
+person.age = 999; // returns RangeError - 'The age is too high'
+```
+
+The `proxy` object is highly customizable and is able to assist in real world applications with things like validation.
+
+#### ----- Reflect object
+
+[MDN comparing object and Reflect methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/Comparing_Reflect_and_Object_methods)
+[MDN Reflect](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect)
+
+The `Reflect` object provides methods to interact with objects programatically. Like `Math` is isn't something you create an instance of, instead it has static methods we can call.
+
+Below is an example of one of it's methods; `Reflect.ownKeys()` it returns an array of the target object's own property keys. This doesn't return any inherited keys like `Object.keys()`.
 
 ```javascript
 const obj = { a: 1, b: 2 };
 Reflect.ownKeys(obj); // [a, b];
 ```
+
+There are many methods for the `Reflect` object, read the documentation for a full list.
 
 #### ----- International and localization support
 
@@ -554,6 +596,8 @@ ES7 was a _much_ smaller upgrade when compared to ES6, with only 2 new features 
 
 #### ----- Array.includes
 
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)
+
 This is a useful method for arrays that simply returns a true or false if a value is present in an array
 
 ```javascript
@@ -564,6 +608,8 @@ names.includes('Max'); // false
 
 #### ----- Exponentiation infix operator
 
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Arithmetic_Operators#Exponentiation)
+
 Examples of infix operators in JavaScript would be `+`, `-` etc, this introduces `**` which is the exponent operation, a replacement for `Math.pow()`. In other words, a number times itself `n` times.
 
 ```javascript
@@ -572,9 +618,11 @@ Examples of infix operators in JavaScript would be `+`, `-` etc, this introduces
 
 ### << <a id="es8"></a> ECMAScript 2017 (ES8) >>
 
-More useful features came along in ES8, arguably the most notable is `async await`.
+More useful features came along in ES8, arguably the most notable is `async await`, but there was also some useful methods added to the `Object` object.
 
 #### ----- Object.values
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values)
 
 An existing function called `Object.keys()` returns an array of the object's keys. `Object.values()` is a new function introduced in ES8 that does the same but for the values of the object.
 
@@ -588,6 +636,8 @@ Object.values(countries); // ["Italy", "Nigeria", "Brazil"]
 ```
 
 #### ----- Object.entries
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries)
 
 `Object.entries()` is a function that can get you the keys _and_ values out of an object (unlike the above mentioned funtions which get one or the other). It will return an array of arrays, each of which will be each of your object's key and value pairs.
 
@@ -606,6 +656,9 @@ for (let [key, value] of Object.entries(someObj)) {
 
 #### ----- String padding
 
+[MDN padStart](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)
+[MDN padEnd](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padEnd)
+
 Two new functions for strings allow for padding
 `padStart()`
 and
@@ -616,7 +669,7 @@ Both of these functions take 2 arguments, the first being the length the string 
 let codes = ['3', '45', '722'];
 
 codes.map((code) => {
-  code = code.padStart(5, '0');
+  code = code.padStart(5, '0'); // pad it to length of 5 with 0's
 });
 codes;
 /*
@@ -627,6 +680,8 @@ codes;
 ```
 
 #### ----- Object.getOwnPropertyDescriptors
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptors)
 
 `Object.getOwnPropertyDescriptors()` can be passed an object, the result will be an object that has all own property descriptors of the passed object. For more details [check the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptors), but below is a basic example of how you can access some details of properties of the object:
 
@@ -643,6 +698,8 @@ personDescriptors.age.value; // 44
 
 #### ----- Trailing commas in function parameters
 
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas)
+
 This is simply a change to function parameter syntax, you are now allowed to have a comma after the last parameter
 
 ```javascript
@@ -657,7 +714,9 @@ function trailingCommas(
 
 #### ----- Async await !!
 
-This is considered the most important update of ECMAScript 2017, and for good reason. They build on top of the JavaScript solution for asynchronous programming - Promises.
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
+
+This is considered the most important update of ECMAScript 2017, and for good reason. They build on top of the JavaScript solution for asynchronous programming - Promises, and make them cleaner and easier to work with.
 
 `async` and `await` are two new keywords we can use to control the flow of our asynchronous code.
 We need to keep our code in a function, we can use the `async` keyword in front of the function declaration to create an `async` function. These functions always return a promise.
@@ -674,7 +733,7 @@ makeRequest().then((result) => console.log(result));
 ```
 
 In the above example, the `await` keyword 'awaits' for the promise to resolve, it then saves the resolved data into the constant on the left.
-Syntactically `async await` is much easier to understand, its code is cleaner, and it is easier to debug. For more information about this, [checkout the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function).
+Syntactically `async await` is much easier to understand, its code is cleaner, and it is easier to debug.
 
 #### ----- Shared memory and atomics
 
@@ -685,7 +744,7 @@ To read about this check out
 
 ### << <a id="es9"></a> ECMAScript 2018 (ES9) >>
 
-ES9 brought in some nice updates to JS
+ES9 brought in some nice additions to asynchronous programming in JavaScript.
 
 #### ----- Regex updates
 
@@ -719,6 +778,8 @@ newObj; // { a: '1', b: '2', c: '3', d: '4' }
 
 #### ----- Promise finally
 
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/finally)
+
 In addition to `.catch()` and `.then()`, to avoid duplicate code inside these handlers, we now have access to `.finally()` which returns a promise and takes a callback function.
 
 ```javascript
@@ -728,18 +789,19 @@ fetch('http://somesite.com')
   .finally(() => console.log('Done!'));
 ```
 
-More details about `finally()` [here on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/finally).
-
 #### ----- Asynchronous iteration
 
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of).
+
 TODO:
-[More details on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of).
 
 ### << <a id="es10"></a> ECMAScript 2019 (ES10) >>
 
 This is currently the latest interation of JavaScript released in June 2019 and includes some nice additions to the language.
 
 #### ----- Bigint
+
+[MDN](https://developer.mozilla.org/en-US/docs/Glossary/BigInt)
 
 Before ES10, the biggest number supported in JavaScript was 9007199254740991. Now with support for big ints, 2⁵³ numbers are supported, these are bigints and are a new primitive. Appending 'n' will create a bigint.
 
@@ -756,16 +818,16 @@ TODO:
 
 #### ----- Saving dynamic imports to variables
 
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
+
 Imports are not new, but being able to assign dynamic (`import()`) imports to variables is. Say we want to load in a module when a button is clicked, and use a function from that module, we could do the following:
 
 ```javascript
 button.addEventListener('click', async () => {
-  const module = await import('./path/to/module.js');
-  module.buttonClick();
+  const module = await import('./path/to/module.js'); // await import to resolve
+  module.buttonClick(); // then call function from the import
 });
 ```
-
-[More details on imports on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
 
 #### ----- Array.prototype.flat()
 
@@ -776,6 +838,14 @@ let nestedArray = [1, [1, 2, 3, [1, [1, 2, [3, [4]]]]]];
 nestedArray.flat(infinity); // [1, 1, 2, 3 1, 1, 2, 1, 4]
 ```
 
+#### ----- Array.prototype.flatMap()
+
+TODO:
+
+#### ----- String.trimStart() & String.trimEnd()
+
+TODO:
+
 #### ----- Object.fromEntries()
 
 `Object.fromEntries` creates an object from key-value pairs
@@ -783,3 +853,4 @@ nestedArray.flat(infinity); // [1, 1, 2, 3 1, 1, 2, 1, 4]
 - [FreeCodeCamp](https://www.freecodecamp.org/)
 - [ES6-features](http://es6-features.org/#Constants)
 - [Mozilla Development Network](https://developer.mozilla.org/en-US/)
+- [Hacker Noon](https://hackernoon.com/)
