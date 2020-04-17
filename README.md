@@ -375,7 +375,28 @@ These are similar, but slightly different to `Map` and `Set`.
 
 #### ----- Typed arrays
 
-[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray)
+[MDN typed arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray)
+[MDN array buffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)
+
+Typed arrays are arrays where the contents are strictly controlled, every element in the array will be restricted to a certain kind of number, 8bit integer, 32 point float etc. There are a lot of APIs which make use of typed arrays such as Web GL, Canvas, Fetch, Web Workers, web audio etc.
+
+Say we wanted to create an array of only 8bit integers, we would use one of the new constructors (see MDN for a full list) for 8bit integers which is `Int8Array()`
+
+```javascript
+const 8bitIntTypedArray = new Int8Array();
+```
+
+There are signed, unsigned, and clamped varients for 8, 16, 32, float32, float64 types. Support for `bigint`s was added in ES7.
+
+In addition is a container called `ArrayBuffer`, which is a generic, fixed-length, raw binary data buffer. You cannot interact with it directly, for that we make use of the `DataView`, this is what has the `get` and `set` methods. Typed arrays shared a lot of funtionality/methods as normal arrays such as `forEach`, `map` etc.
+
+```javascript
+const buffer = new ArrayBuffer(16); // creates 16 byte buffer
+const view = new DataView(buffer); // DataView to access/set the whole buffer with
+
+view.setInt8(1, 10); // in slot 1 set 10
+view.getInt8(1); // returns 10
+```
 
 TODO:
 
