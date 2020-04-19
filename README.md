@@ -285,7 +285,7 @@ for (let letter of ['a', 'b', 'c']) {
 // a, b, c
 ```
 
-This looks like regular looping, but under the hood, this construct lets the object decide what data it gives on when iterated, in this case it is a normal array so it just pulls out the 'next' item. This is really calling a `.next()`, a built in method that returns the next item in the array. `String`, `Array`, `Map`, `Set` all have this functionality built in, but normal `Object` do not.
+This looks like regular looping, but under the hood, this construct lets the object decide what data it gives out when iterated, in this case it is a normal array so it just pulls out the 'next' item. This is really calling `.next()`, a built in method that returns the next item in the array. `String`, `Array`, `Map`, `Set` all have this functionality built in, but normal `Object`s do not.
 
 ```javascript
 let letters = ['a', 'b', 'c'];
@@ -321,7 +321,7 @@ const iterable = {
 
 let iterable = iterator[Symbol.iterator]();
 
-iterable.next(); // { value: 'This', done: false }
+iterable.next(); // { value: 'Mario', done: false }
 ```
 
 Generators are in essence functions that are wrappers for iterators. They are created with `function*`, and returns a generator object. These functions can be 'paused' between returning values using the `yield` keyword.
@@ -683,7 +683,7 @@ codes;
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptors)
 
-`Object.getOwnPropertyDescriptors()` can be passed an object, the result will be an object that has all own property descriptors of the passed object. For more details [check the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptors), but below is a basic example of how you can access some details of properties of the object:
+`Object.getOwnPropertyDescriptors()` can be passed an object, the result will be an object that has all own property descriptors of the passed object. Down below is a basic example of how you can access some details of properties of the object:
 
 ```javascript
 const person = {
@@ -695,6 +695,8 @@ const personDescriptors = Object.getOwnPropertyDescriptors(person);
 personDescriptors.name.writable; // true
 personDescriptors.age.value; // 44
 ```
+
+TODO:
 
 #### ----- Trailing commas in function parameters
 
@@ -748,15 +750,16 @@ ES9 brought in some nice additions to asynchronous programming in JavaScript.
 
 #### ----- Regex updates
 
-There are 4 changes to regex in JS with ES9:
+[MDN regular expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)
+
+There are 4 changes to regex in JS, [explained in detail in this article by Faraz Kelhini](https://www.smashingmagazine.com/2019/02/regexp-features-regular-expressions/#lookbehind-assertions), brief descriptions below:
 
 1. `s` flag
    To add to the regex flags like `g` (matches multple times), or `i` (makes regex case insensitive), we now have `s` which causes the `.` to also match new line characters.
-2. Named capture groups // TODO:
-3. Look behind assertions. // TODO:
+2. Named capture groups. Say you have a regex like `/www\.(\w*)\.(\w*)/` you wanted to grab the subdomain and top level domain from, once you create a match object, you would have to pull the groups out by numbers with `match[1]` etc, which makes things difficult when there are many groups. Now JavaScript has named capture groups that make this easier using `(?<name>)`, so we could do the above using `/www\.(?<subdomain>\w*)\.(?<topleveldomain>\w*)/` and pulling out the groups using `match.groups.subdomain`.
+3. Look behind assertions. Prior to ES9, only look ahead assertions were available in JavaScript, now you can use `(?<=...)` to only match expressions that follow a pattern.
 4. Unicode property escapes
    You can now search for special characters by mentioning their unicode character property inside of a `/p{}`. Unicode characters have a lot of properties, for example `Letter` matches any unicode that represents a letter in any language, so we could write `/p{Letter}` to match these.
-   <a id="resources"></a>This guide has been compiled from a number of resources listed below. Some bits of text and examples have been copied over from the below resources.
 
 #### ----- Object rest and spread properties
 
@@ -791,9 +794,33 @@ fetch('http://somesite.com')
 
 #### ----- Asynchronous iteration
 
-[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of).
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of)
+Using the new `for (await ... of ...)` format, we can now loop over an iterable and return promises. Below is an example of an iterable that returns promises, and an asychronous function that contains a `for (await ... of ...)` that loops through them.
 
-TODO:
+```javascript
+const users = ['Ross', 'Miyamoto', 'Pauline'];
+const asyncIterable = {
+  [Symbol.asyncIterator]() {
+    let i = -1;
+    return {
+      next() {
+        i++;
+        if (i < users.length) {
+          return Promise.resolve({ value: users[i], done: false });
+        }
+
+        return Promise.resolve({ done: true });
+      },
+    };
+  },
+};
+
+(async function () {
+  for await (let user of asyncIterable) {
+    console.log(user);
+  }
+})();
+```
 
 ### << <a id="es10"></a> ECMAScript 2019 (ES10) >>
 
@@ -810,15 +837,25 @@ const a = 1n;
 typeof a; // "bigint"
 ```
 
-There is a lot more to know about bigints if you'd be using them in your program, [check out the MDN docs for all the details](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt);
-
 #### ----- String.prototype.matchAll()
 
-TODO:
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll)
+
+The `matchAll()` method returns an iterator of all the results matched against a string. It was possible to iterate through multiple matches prior to this, but this has been made much easier.
+
+```javascript
+const regex = /l/g;
+const str = 'Hello, World!';
+
+const result = [...str.matchAll(regex)];
+for (let i of result) {
+  console.log(i); // ["l"], ["l"], ["l"]
+}
+```
 
 #### ----- Saving dynamic imports to variables
 
-[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
+[MDN import statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
 
 Imports are not new, but being able to assign dynamic (`import()`) imports to variables is. Say we want to load in a module when a button is clicked, and use a function from that module, we could do the following:
 
@@ -831,24 +868,93 @@ button.addEventListener('click', async () => {
 
 #### ----- Array.prototype.flat()
 
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
+
 You can now easily flatted nested arrays, the `flat` function takes a depth. You can also pass it `infinity` to completely flatten an array.
 
 ```javascript
-let nestedArray = [1, [1, 2, 3, [1, [1, 2, [3, [4]]]]]];
-nestedArray.flat(infinity); // [1, 1, 2, 3 1, 1, 2, 1, 4]
+let nestedArray = [1, [1, 2, 3, [1, [1, 2, [3, [4]]]], [1]]];
+nestedArray.flat(infinity); // [1, 1, 2, 3 1, 1, 2, 1, 4, 1]
 ```
 
 #### ----- Array.prototype.flatMap()
 
-TODO:
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap)
+
+`flatMap()` essentially runs a map function on each of the array's items, then flattens it.
+
+```javascript
+const nums = [1, 2, 3, 4, 5];
+
+nums.map((x) => [x * 2]); // [[2], [4], [6], [8], [10]]
+nums.flatMap((x) => [x * 2]); // [2, 4, 6, 8, 10]
+```
+
+Notice how `.flatMap()` flattens the array it returns.
 
 #### ----- String.trimStart() & String.trimEnd()
 
-TODO:
+[MDN trimStart](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trimStart)
+[MDN trimEnd](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trimEnd)
+
+JavaScript already has a `trim()` function for strings, which takes off any white space from the start and end of the string. These two new functions for strings are pretty self-explanatory, they take off whitespace from the start or end of the string.
+
+```javascript
+const hello = '    hello    ';
+hello.trimStart(); // "hello    "
+hello.trimEnd(); // "    hello"
+```
 
 #### ----- Object.fromEntries()
 
-`Object.fromEntries` creates an object from key-value pairs
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries)
+
+`Object.fromEntries()` creates an object from key-value pairs, it takes an iterable like an `Array` or `Map` and retuns an object. Below we have a `Map` with some data, which we use to create a new object.
+
+```javascript
+const rossMap = new Map([
+  ['name', 'Ross'],
+  ['likes', 'video games'],
+]);
+
+const rossObj = Object.fromEntries(rossMap); // {name: "Ross", likes: "video games"}
+```
+
+#### ----- Stable Array.prototype.sort()
+
+Esentially, for arrays with more than 10 items, this method used an unstable algorithm. ES10 now offers a stable `array.sort()`.
+
+#### ----- Optional catch binding
+
+This refers to changes with `try ... catch` blocks in JavaScript. See below we have some simple code where we `try` and do something, if there is an error we `return false`
+
+```javascript
+try {
+  // ... do something
+} catch (error) {
+  return false;
+}
+```
+
+Notice how we _have_ to have the `error` variable, even if we don't actually use it. ES10 now makes this optional, so the below code would not error
+
+```javascript
+try {
+  // ... do something
+} catch {
+  return false;
+}
+```
+
+#### ----- Other
+
+- Well-formed `JSON.stringify()`
+- `function.toString()` now more standardized
+- Standardized global `this` object
+
+### <a id="resources"></a> << Resources >>
+
+This guide has been compiled from a number of resources listed below
 
 - [FreeCodeCamp](https://www.freecodecamp.org/)
 - [ES6-features](http://es6-features.org/#Constants)
