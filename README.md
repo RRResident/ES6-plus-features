@@ -826,33 +826,6 @@ const asyncIterable = {
 
 This is currently the latest interation of JavaScript released in June 2019 and includes some nice additions to the language.
 
-#### ----- Bigint
-
-[MDN](https://developer.mozilla.org/en-US/docs/Glossary/BigInt)
-
-Before ES10, the biggest number supported in JavaScript was 9007199254740991. Now with support for big ints, 2⁵³ numbers are supported, these are bigints and are a new primitive. Appending 'n' will create a bigint.
-
-```javascript
-const a = 1n;
-typeof a; // "bigint"
-```
-
-#### ----- String.prototype.matchAll()
-
-[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll)
-
-The `matchAll()` method returns an iterator of all the results matched against a string. It was possible to iterate through multiple matches prior to this, but this has been made much easier.
-
-```javascript
-const regex = /l/g;
-const str = 'Hello, World!';
-
-const result = [...str.matchAll(regex)];
-for (let i of result) {
-  console.log(i); // ["l"], ["l"], ["l"]
-}
-```
-
 #### ----- Saving dynamic imports to variables
 
 [MDN import statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
@@ -946,17 +919,58 @@ try {
 }
 ```
 
+#### ----- Symbol.prototype.description
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/description)
+
+ES10 Adds the `description` read-only property to `Symbol` objects. `Symbol`s can be created with an optional description, which is a string you pass to it during instantiation.
+
+```javascript
+const sym = Symbol('desc');
+sym.description; // 'desc'
+```
+
 #### ----- Other
 
 - Well-formed `JSON.stringify()`
 - `function.toString()` now more standardized
-- Standardized global `this` object
+
+### << <a id="es11"></a> ECMAScript 2020 (ES11) >>
+
+These features are due to be approved in June. [ES2020 candidate](https://github.com/tc39/ecma262/releases/tag/es2020).
+
+#### ----- String.prototype.matchAll()
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll)
+
+The `matchAll()` method returns an iterator of all the results matched against a string. It was possible to iterate through multiple matches prior to this, but this has been made much easier.
+
+```javascript
+const regex = /l/g;
+const str = 'Hello, World!';
+
+const result = [...str.matchAll(regex)];
+for (let i of result) {
+  console.log(i); // ["l"], ["l"], ["l"]
+}
+```
+
+#### ----- Bigint
+
+[MDN](https://developer.mozilla.org/en-US/docs/Glossary/BigInt)
+
+Before ES10, the biggest number supported in JavaScript was 9007199254740991. Now with support for big ints, 2⁵³ numbers are supported, these are bigints and are a new primitive. Appending 'n' will create a bigint.
+
+```javascript
+const a = 1n;
+typeof a; // "bigint"
+```
 
 ### <a id="resources"></a> << Resources >>
 
 This guide has been compiled from a number of resources listed below
 
+- [Mozilla Development Network](https://developer.mozilla.org/en-US/)
 - [FreeCodeCamp](https://www.freecodecamp.org/)
 - [ES6-features](http://es6-features.org/#Constants)
-- [Mozilla Development Network](https://developer.mozilla.org/en-US/)
 - [Hacker Noon](https://hackernoon.com/)
