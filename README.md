@@ -19,12 +19,14 @@ Read on or jump to a section:
 1. [ECMAScript 2019 (ES10)](#es10)
 1. [ECMAScript 2020 (ES11)](#es11)
 1. [Resources](#resources)
+ <hr>
 
-### << <a id="es6"></a>ECMAScript 2015 (ES6) >>
+### 《<a id="es6"></a>ECMAScript 2015 (ES6)》
 
 There were a **LOT** of changes/features introduced with ES6, to focus on the more interesting features, I've marked them with `!!`, so you can search for that if you want to jump to the bigger features.
 
-#### ----- Constants !!
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Constants!!</h4>
+<div style="height:2px;background:black;;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const)
 
@@ -43,14 +45,16 @@ const someVal = 789; // error
 
 This only makes the variable itself immutable, not its content, so items in an array or object defined with `const` could be changed.
 
-#### ----- Blocked scope variables with let !!
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Blocked scope variables with let!!</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let)
 
 As well as `const`, ES6 also introduced another keyword for defining variables: `let`.
 Variables defined with `var` are scoped to the immediate function body, whilst `let` variables are scoped to the immidiate code block `{}`. There a few more differences of note, [a great Stackoverflow answer breaks this down in depth](https://stackoverflow.com/questions/762011/whats-the-difference-between-using-let-and-var). In essence, the function scope of `var` was a common cause of bugs in JavaScript and `let` was aimed at changing that.
 
-#### ----- Arrow functions !!
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Arrow functions !!</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
 
@@ -61,7 +65,7 @@ Arrow functions differ to regular functions in many ways, but here I'll point ou
 
 ```javascript
 function normalFunc(num) {
-  return num + 1;
+    return num + 1;
 }
 ```
 
@@ -76,7 +80,8 @@ The parenthesis around the parameter are optional if there is only one, the brac
 2. No separate `this`
    This was an issue when defining 'methods' of 'classes' in JavaScript, where `SomeClass.prototype.someFunction`'s `this` would refer to _itself_, its own `this` rather than the instance. Arrow functions have no `this`, and using `this` in an arrow function that is an object method will refer to the instance. Nice.
 
-#### ----- Default parameter values
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Default parameter values</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)
 
@@ -85,9 +90,9 @@ Before ES6 you would have had to write some `if` logic inside the function like
 
 ```javascript
 function f(a, b, c) {
-  if (a === undefined) {
-    a = 1; // set default
-  }
+    if (a === undefined) {
+        a = 1; // set default
+    }
 }
 ```
 
@@ -95,11 +100,12 @@ ES6 introduced the functionality to just pass this into the function like so:
 
 ```javascript
 function f(a = 1, b, c) {
-  // ...
+    // ...
 }
 ```
 
-#### ----- Rest parameter !!
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Rest parameter !!</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters)
 
@@ -107,11 +113,12 @@ function f(a = 1, b, c) {
 
 ```javascript
 function f(a, b, ...restOfArgs) {
-  // ...
+    // ...
 }
 ```
 
-#### ----- Spread operator !!
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Spread operator !!</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
 
@@ -122,7 +129,8 @@ const someArr = [1, 2, 3];
 const someOtherArr = [...someArr, 4, 5, 6]; // [1, 2, 3, 4, 5, 6]
 ```
 
-#### ----- Template literals !!
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Template literals !!</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 
@@ -158,7 +166,8 @@ You can also use them to access raw strings like so;
 console.log(String.raw`hello\nnot a newline`); // hellonot a newline
 ```
 
-#### ----- Enhanced object properties
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Enhanced object properties</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 Short syntax for object properties if you're setting it to a value with the same name:
 
@@ -178,7 +187,8 @@ const obj {
 }
 ```
 
-#### ----- Destructuring
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Destructuring !!</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
 
@@ -197,7 +207,8 @@ val2; // 456
 
 When destructuring you can include defaults for if a value isn't there. For more details check out the MDN docs.
 
-#### ----- Modules !!
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Modules !!</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
 
@@ -214,7 +225,8 @@ myObj.a; // 1
 
 You can mark values for export and also mark default exports. Default exports can be imported in directly whilst other exports can be imported in using `{}`. Whilst browser support is still iffy for modules, it's common to use a bundler like [Webpack](https://webpack.js.org/) to bundle all your modules together for delivery to the browser.
 
-#### ----- Classes !!
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Classes !!</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
 
@@ -222,8 +234,8 @@ Whilst ES6 classes are just syntactic sugar for prototype objects, they make cre
 
 ```javascript
 function User(name, email) {
-  this.name = name;
-  this.email = email;
+    this.name = name;
+    this.email = email;
 }
 User.prototype.someMethod = function () {};
 ```
@@ -232,12 +244,12 @@ Can now be written as:
 
 ```javascript
 class User {
-  constructor(name, email) {
-    this.name = name;
-    this.email = email;
-  }
+    constructor(name, email) {
+        this.name = name;
+        this.email = email;
+    }
 
-  someMethod: () => {};
+    someMethod: () => {};
 }
 ```
 
@@ -257,7 +269,8 @@ class Phone {
 
 There is a lot to know about ES6 classes, refer to the MDN docs.
 
-#### ----- Symbols
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Symbols</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Glossary/Symbol)
 
@@ -271,7 +284,8 @@ sym1 === sym2; // false
 
 Every symbol, whether passed (the optional) value or not, is unique, comparing two of them will never return `true`.
 
-#### ----- Iterators and generators
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Iterators and generators</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)
 
@@ -280,7 +294,7 @@ An example:
 
 ```javascript
 for (let letter of ['a', 'b', 'c']) {
-  console.log(letter);
+    console.log(letter);
 }
 // a, b, c
 ```
@@ -328,15 +342,16 @@ Generators are in essence functions that are wrappers for iterators. They are cr
 
 ```javascript
 function* generatorFunc(i) {
-  yield i;
-  yield i + 1;
+    yield i;
+    yield i + 1;
 }
 
 let generator = generatorFunc(2); // Creates generator object
 generator.next(); // {value: 5, done: false}
 ```
 
-#### ----- Set (data structure)
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Set (data structure)</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)
 
@@ -350,7 +365,8 @@ s.add(1);
 s.size; // 2
 ```
 
-#### ----- Map (data structure)
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Map (data structure)</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
 
@@ -362,7 +378,8 @@ mapObj.set(Symbol(), 1);
 map.Obj.set({ keyName: 'key' }, 'value');
 ```
 
-#### ----- Weakset and Weakmap (data structure)
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Weakset and Weakmap (data structure)</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN weakset](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet)
 [MDN weakmap](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
@@ -373,7 +390,8 @@ These are similar, but slightly different to `Map` and `Set`.
 `WeakMap` are similar with how their 'weak' link works without outside objects, and they also can only have objects as their keys.
 [A good article explaining the difference betwee Map and WeakMap](https://www.mattzeunert.com/2017/01/31/weak-maps.html).
 
-#### ----- Typed arrays
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Typed arrays</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN typed arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray)
 [MDN array buffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)
@@ -400,7 +418,8 @@ view.getInt8(1); // returns 10
 
 TODO:
 
-#### ----- New built in methods
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">New built in methods</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 Adding functionality to existing types: objects, arrays, strings and numbers
 
@@ -422,8 +441,8 @@ dest.prop4; // "c"
 
 ```javascript
 [1, 3, 4, 2]
-  .find((x) => x > 3) // 4
-  [(1, 3, 4, 2)].findIndex((x) => x > 3); // 2
+    .find((x) => x > 3) // 4
+    [(1, 3, 4, 2)].findIndex((x) => x > 3); // 2
 ```
 
 3. `String.repeat()` gets passed a number of times to return a repeat of the string it is called on.
@@ -447,9 +466,9 @@ yo.repeat(5); // yo yo yo yo yo
 
 6. `Number.isSafeInteger()` is a method that determines whether the provided value is a number that is a 'safe' integer (hence the name), this mean it can:
 
-- be exactly represented as an IEEE-754 double precision number
-  and its
-- IEEE-754 representation cannot be the result of rounding any other integer to fit the IEEE-754 representation.
+-   be exactly represented as an IEEE-754 double precision number
+    and its
+-   IEEE-754 representation cannot be the result of rounding any other integer to fit the IEEE-754 representation.
 
 It can return `true` or `false`.
 
@@ -463,7 +482,8 @@ Math.trunc(11.6); // 11
 
 9. `Math.sign()` method either returns a positive or a negative, in other words, if passed a positive number it will return `1`, or `-1` for a negative number. It will return `0` if passed a `0`, same with `-0`. Anything else will return `NaN`.
 
-#### ----- Promises !!
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Promises !!</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 
@@ -478,8 +498,8 @@ Promises are a powerful and complex tool in JavaScript, and are especially usefu
 
 ```javascript
 fetch('http://www.someurl.com')
-  .then(doSomethingWithReturnedData)
-  .catch(logErrorMessage);
+    .then(doSomethingWithReturnedData)
+    .catch(logErrorMessage);
 ```
 
 These are simplifed examples, `then`s can be chained to allow for a lot of functionality to run on resolve/reject cases of a promise.
@@ -490,55 +510,56 @@ Further down we add some functionality for what should happen should the promise
 
 ```javascript
 let getData = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    const exampleData = { name: 'Ross', job: 'Frontend developer' };
-    let somethingWrong = false;
-    somethingWrong ? reject('Error') : resolve(exampleData);
-  }, 500);
+    setTimeout(() => {
+        const exampleData = { name: 'Ross', job: 'Frontend developer' };
+        let somethingWrong = false;
+        somethingWrong ? reject('Error') : resolve(exampleData);
+    }, 500);
 });
 
 getData
-  .then((data) => {
-    console.log(data.name);
-  })
-  .catch((errorMsg) => {
-    console.log(errorMsg);
-  });
+    .then((data) => {
+        console.log(data.name);
+    })
+    .catch((errorMsg) => {
+        console.log(errorMsg);
+    });
 
 // Run other code ...
 
 // "Ross"
 ```
 
-#### ----- Proxying
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Proxying</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
 
 The `Proxy` object is used to define custom behavior for fundamental operations in JavaScript (e.g. property lookup, assignment, enumeration, function invocation, etc). Let's say we wish to make a person object, with properties that can only have certain value types.
 When creating a proxy instance, you need to pass it two things:
 
-- the target object to wrap with `Proxy`
-- The handler object which has functions that define the proxy objects behavior
+-   the target object to wrap with `Proxy`
+-   The handler object which has functions that define the proxy objects behavior
 
 The handler object can add custom functionality via its methods known as 'traps', below we'll use `set`, which is a trap for setting property values.
 
 ```javascript
 const handlerObject = {
-  set: (obj, prop, value) => {
-    if (prop === 'age') {
-      if (!Number.isInteger(value)) {
-        throw new TypeError('Age is not an integer');
-      }
+    set: (obj, prop, value) => {
+        if (prop === 'age') {
+            if (!Number.isInteger(value)) {
+                throw new TypeError('Age is not an integer');
+            }
 
-      if (value > 200) {
-        throw new RangeError('The age is too high');
-      }
-    }
+            if (value > 200) {
+                throw new RangeError('The age is too high');
+            }
+        }
 
-    obj[prop] = value; // If all tests pass, add the key-value into the object
+        obj[prop] = value; // If all tests pass, add the key-value into the object
 
-    return true; // indicate success
-  },
+        return true; // indicate success
+    },
 };
 
 const person = new Proxy({}, handlerObject);
@@ -549,12 +570,13 @@ person.age = 999; // returns RangeError - 'The age is too high'
 
 The `proxy` object is highly customizable and is able to assist in real world applications with things like validation.
 
-#### ----- Reflect object
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Reflect object</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN comparing object and Reflect methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/Comparing_Reflect_and_Object_methods)
 [MDN Reflect](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect)
 
-The `Reflect` object provides methods to interact with objects programatically. Like `Math` is isn't something you create an instance of, instead it has static methods we can call.
+The `Reflect` object provides methods to interact with objects programatically. Like `Math` it isn't something you create an instance of, instead it has static methods we can call.
 
 Below is an example of one of it's methods; `Reflect.ownKeys()` it returns an array of the target object's own property keys. This doesn't return any inherited keys like `Object.keys()`.
 
@@ -565,7 +587,8 @@ Reflect.ownKeys(obj); // [a, b];
 
 There are many methods for the `Reflect` object, read the documentation for a full list.
 
-#### ----- International and localization support
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">International and localization support</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
 
@@ -578,23 +601,26 @@ An example of something you can do with this:
 
 ```javascript
 let britishPounds = new Intl.NumberFormat('en-GB', {
-  style: 'currency',
-  currency: 'GBP',
+    style: 'currency',
+    currency: 'GBP',
 });
 britishPounds.format(10300); // "£10,300.00"
 ```
 
-#### ----- Other
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Other</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
-- Direct support for safe binary and octal literals.
-- Extended support for using unicode within strings and regular expressions.
-- Enhanced regular expressions.
+-   Direct support for safe binary and octal literals.
+-   Extended support for using unicode within strings and regular expressions.
+-   Enhanced regular expressions.
 
-### << <a id="es7"></a> ECMAScript 2016 (ES7) >>
+<hr>
+### 《<a id="es7"></a> ECMAScript 2016 (ES7)》
 
 ES7 was a _much_ smaller upgrade when compared to ES6, with only 2 new features to JavaScript.
 
-#### ----- Array.includes
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Array.includes</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)
 
@@ -606,7 +632,8 @@ names.includes('Ross'); // true
 names.includes('Max'); // false
 ```
 
-#### ----- Exponentiation infix operator
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Exponentiation infix operator</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Arithmetic_Operators#Exponentiation)
 
@@ -616,11 +643,13 @@ Examples of infix operators in JavaScript would be `+`, `-` etc, this introduces
 2 ** 3; // 8, same as 2 * 2 * 2
 ```
 
-### << <a id="es8"></a> ECMAScript 2017 (ES8) >>
+<hr>
+### 《<a id="es8"></a> ECMAScript 2017 (ES8)》
 
 More useful features came along in ES8, arguably the most notable is `async await`, but there was also some useful methods added to the `Object` object.
 
-#### ----- Object.values
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Object.values</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values)
 
@@ -628,14 +657,15 @@ An existing function called `Object.keys()` returns an array of the object's key
 
 ```javascript
 const countries = {
-  europe: 'Italy',
-  africa: 'Nigeria',
-  southAmerica: 'Brazil',
+    europe: 'Italy',
+    africa: 'Nigeria',
+    southAmerica: 'Brazil',
 };
 Object.values(countries); // ["Italy", "Nigeria", "Brazil"]
 ```
 
-#### ----- Object.entries
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Object.entries</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries)
 
@@ -650,11 +680,12 @@ This makes it useful for looping over both using something like the below:
 
 ```javascript
 for (let [key, value] of Object.entries(someObj)) {
-  // ...
+    // ...
 }
 ```
 
-#### ----- String padding
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">String padding</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN padStart](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)
 [MDN padEnd](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padEnd)
@@ -669,7 +700,7 @@ Both of these functions take 2 arguments, the first being the length the string 
 let codes = ['3', '45', '722'];
 
 codes.map((code) => {
-  code = code.padStart(5, '0'); // pad it to length of 5 with 0's
+    code = code.padStart(5, '0'); // pad it to length of 5 with 0's
 });
 codes;
 /*
@@ -679,7 +710,8 @@ codes;
  */
 ```
 
-#### ----- Object.getOwnPropertyDescriptors
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Object.getOwnPropertyDescriptors</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptors)
 
@@ -687,8 +719,8 @@ codes;
 
 ```javascript
 const person = {
-  name: 'John',
-  age: 44,
+    name: 'John',
+    age: 44,
 };
 
 const personDescriptors = Object.getOwnPropertyDescriptors(person);
@@ -698,7 +730,8 @@ personDescriptors.age.value; // 44
 
 TODO:
 
-#### ----- Trailing commas in function parameters
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Trailing commas in function parameters</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas)
 
@@ -706,15 +739,16 @@ This is simply a change to function parameter syntax, you are now allowed to hav
 
 ```javascript
 function trailingCommas(
-  arg1,
-  arg2,
-  arg3 // A comma here won't error
+    arg1,
+    arg2,
+    arg3 // A comma here won't error
 ) {
-  // ...
+    // ...
 }
 ```
 
-#### ----- Async await !!
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Async await !!</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
 
@@ -725,9 +759,9 @@ We need to keep our code in a function, we can use the `async` keyword in front 
 
 ```javascript
 const makeRequest = async () => {
-  const data = await getData(); // getdata() returns a promise
+    const data = await getData(); // getdata() returns a promise
 
-  doSomethingWithData(data);
+    doSomethingWithData(data);
 };
 
 // makeRequest returns a promise, which can be accessed with .then()
@@ -737,18 +771,21 @@ makeRequest().then((result) => console.log(result));
 In the above example, the `await` keyword 'awaits' for the promise to resolve, it then saves the resolved data into the constant on the left.
 Syntactically `async await` is much easier to understand, its code is cleaner, and it is easier to debug.
 
-#### ----- Shared memory and atomics
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Shared memory and atomics</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 // TODO
 To read about this check out
 [Atomics on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics)
 [SharedArrayBuffer on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer)
 
-### << <a id="es9"></a> ECMAScript 2018 (ES9) >>
+<hr>
+### 《<a id="es9"></a> ECMAScript 2018 (ES9)》
 
 ES9 brought in some nice additions to asynchronous programming in JavaScript.
 
-#### ----- Regex updates
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Regex updates</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN regular expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)
 
@@ -761,7 +798,8 @@ There are 4 changes to regex in JS, [explained in detail in this article by Fara
 4. Unicode property escapes
    You can now search for special characters by mentioning their unicode character property inside of a `/p{}`. Unicode characters have a lot of properties, for example `Letter` matches any unicode that represents a letter in any language, so we could write `/p{Letter}` to match these.
 
-#### ----- Object rest and spread properties
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Object rest and spread properties</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 Rest and spread are already available inside arrays, now that functionality extends to objects. An example of how we can use the rest property when destructuring objects:
 
@@ -779,7 +817,8 @@ let newObj = { ...originalObj, d: '4' };
 newObj; // { a: '1', b: '2', c: '3', d: '4' }
 ```
 
-#### ----- Promise finally
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Promise finally</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/finally)
 
@@ -787,12 +826,13 @@ In addition to `.catch()` and `.then()`, to avoid duplicate code inside these ha
 
 ```javascript
 fetch('http://somesite.com')
-  .then((data) => console.log(data))
-  .catch((error) => console.log(error))
-  .finally(() => console.log('Done!'));
+    .then((data) => console.log(data))
+    .catch((error) => console.log(error))
+    .finally(() => console.log('Done!'));
 ```
 
-#### ----- Asynchronous iteration
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Asynchronous iteration</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of)
 Using the new `for (await ... of ...)` format, we can now loop over an iterable and return promises. Below is an example of an iterable that returns promises, and an asychronous function that contains a `for (await ... of ...)` that loops through them.
@@ -800,33 +840,35 @@ Using the new `for (await ... of ...)` format, we can now loop over an iterable 
 ```javascript
 const users = ['Ross', 'Miyamoto', 'Pauline'];
 const asyncIterable = {
-  [Symbol.asyncIterator]() {
-    let i = -1;
-    return {
-      next() {
-        i++;
-        if (i < users.length) {
-          return Promise.resolve({ value: users[i], done: false });
-        }
+    [Symbol.asyncIterator]() {
+        let i = -1;
+        return {
+            next() {
+                i++;
+                if (i < users.length) {
+                    return Promise.resolve({ value: users[i], done: false });
+                }
 
-        return Promise.resolve({ done: true });
-      },
-    };
-  },
+                return Promise.resolve({ done: true });
+            },
+        };
+    },
 };
 
 (async function () {
-  for await (let user of asyncIterable) {
-    console.log(user);
-  }
+    for await (let user of asyncIterable) {
+        console.log(user);
+    }
 })();
 ```
 
-### << <a id="es10"></a> ECMAScript 2019 (ES10) >>
+<hr>
+### 《<a id="es10"></a> ECMAScript 2019 (ES10)》
 
 This is currently the latest interation of JavaScript released in June 2019 and includes some nice additions to the language.
 
-#### ----- Saving dynamic imports to variables
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Saving dynamic imports to variables</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN import statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
 
@@ -834,12 +876,13 @@ Imports are not new, but being able to assign dynamic (`import()`) imports to va
 
 ```javascript
 button.addEventListener('click', async () => {
-  const module = await import('./path/to/module.js'); // await import to resolve
-  module.buttonClick(); // then call function from the import
+    const module = await import('./path/to/module.js'); // await import to resolve
+    module.buttonClick(); // then call function from the import
 });
 ```
 
-#### ----- Array.prototype.flat()
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Array.prototype.flat()</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
 
@@ -850,7 +893,8 @@ let nestedArray = [1, [1, 2, 3, [1, [1, 2, [3, [4]]]], [1]]];
 nestedArray.flat(infinity); // [1, 1, 2, 3 1, 1, 2, 1, 4, 1]
 ```
 
-#### ----- Array.prototype.flatMap()
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Array.prototype.flatMap()</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap)
 
@@ -865,7 +909,8 @@ nums.flatMap((x) => [x * 2]); // [2, 4, 6, 8, 10]
 
 Notice how `.flatMap()` flattens the array it returns.
 
-#### ----- String.trimStart() & String.trimEnd()
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">String.trimStart() & String.trimEnd()</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN trimStart](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trimStart)
 [MDN trimEnd](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trimEnd)
@@ -878,7 +923,8 @@ hello.trimStart(); // "hello    "
 hello.trimEnd(); // "    hello"
 ```
 
-#### ----- Object.fromEntries()
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Object.fromEntries()</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries)
 
@@ -886,40 +932,43 @@ hello.trimEnd(); // "    hello"
 
 ```javascript
 const rossMap = new Map([
-  ['name', 'Ross'],
-  ['likes', 'video games'],
+    ['name', 'Ross'],
+    ['likes', 'video games'],
 ]);
 
 const rossObj = Object.fromEntries(rossMap); // {name: "Ross", likes: "video games"}
 ```
 
-#### ----- Stable Array.prototype.sort()
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Stable Array.prototype.sort()</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 Esentially, for arrays with more than 10 items, this method used an unstable algorithm. ES10 now offers a stable `array.sort()`.
 
-#### ----- Optional catch binding
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Optional catch binding</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 This refers to changes with `try ... catch` blocks in JavaScript. See below we have some simple code where we `try` and do something, if there is an error we `return false`
 
 ```javascript
 try {
-  // ... do something
+    // ... do something
 } catch (error) {
-  return false;
+    return false;
 }
 ```
 
-Notice how we _have_ to have the `error` variable, even if we don't actually use it. ES10 now makes this optional, so the below code would not error
+Notice how we _have_ to have the `error` parameter, even if we don't actually use it. ES10 now makes this optional, so the below code would not error
 
 ```javascript
 try {
-  // ... do something
+    // ... do something
 } catch {
-  return false;
+    return false;
 }
 ```
 
-#### ----- Symbol.prototype.description
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Symbol.prototype.description</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/description)
 
@@ -930,16 +979,19 @@ const sym = Symbol('desc');
 sym.description; // 'desc'
 ```
 
-#### ----- Other
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Other</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
-- Well-formed `JSON.stringify()`
-- `function.toString()` now more standardized
+-   Well-formed `JSON.stringify()`
+-   `function.toString()` now more standardized
+<hr>
 
-### << <a id="es11"></a> ECMAScript 2020 (ES11) >>
+### 《<a id="es11"></a> ECMAScript 2020 (ES11)》
 
-These features are due to be approved in June. [ES2020 candidate](https://github.com/tc39/ecma262/releases/tag/es2020).
+ES11 was formally approved on 16th of June 2020, and introduces some new ways to import, and a new type
 
-#### ----- String.prototype.matchAll()
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">String.prototype.matchAll()</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll)
 
@@ -951,11 +1003,12 @@ const str = 'Hello, World!';
 
 const result = [...str.matchAll(regex)];
 for (let i of result) {
-  console.log(i); // ["l"], ["l"], ["l"]
+    console.log(i); // ["l"], ["l"], ["l"]
 }
 ```
 
-#### ----- Bigint
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Bigint</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
 
 [MDN](https://developer.mozilla.org/en-US/docs/Glossary/BigInt)
 
@@ -966,11 +1019,155 @@ const a = 1n;
 typeof a; // "bigint"
 ```
 
-### <a id="resources"></a> << Resources >>
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Dynamic import</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
+
+This is a new function-like import which can support asynchonous loading of modules, you also don't have to use string literals like the normal `import` statement, and can use template literals, like so:
+
+```javascript
+import(`./pathToSomeFile/${file}.js`);
+```
+
+An example of its use could be loading in a module when a user clicks a button, this example is from MDN docs, linked above
+
+```javascript
+const main = document.querySelector('main');
+for (const link of document.querySelectorAll('nav > a')) {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        import('/modules/my-module.js')
+            .then((module) => {
+                module.loadPageInto(main);
+            })
+            .catch((err) => {
+                main.textContent = err.message;
+            });
+    });
+}
+```
+
+`import()` returns a promise, in the example we're using `then()` stynax to load the resolved promise into the page, or catch an error and add that into the page.
+
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Promise.allSettled()</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled)
+
+`Promise.allSettled()` returns a promise, when _all_ of the passed promises are either fulfilled or rejected. The returned promise is an array of objects that describe each of the outcomes of the passed promises.
+
+```javascript
+const prom1 = Promise.resolve(1); // Create a promise that resolves
+
+const prom2 = new Promise((res, rej) => rej()); // and one that rejects
+
+// Pass them inside an iterable to Promise.allSettled()
+Promise.allSettled([prom1, prom2]).then((results) => {
+    results.forEach((result) => {
+        console.log(result.status); // Log the status of each one
+    });
+});
+
+// fulfilled
+// rejected
+```
+
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">globalThis()</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/globalThis)
+
+The `globalThis` property came about as a need for a standard way to refer to the global `this` object. Between the web, Node and Web workers, there isn't a one-way-fits-all to do this, for example `global` works for Node, but `window` will work on the web, and only `this` can work for web workers.
+This gives a standard, across-the-board way to access the global `this` object.
+
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">import.meta</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import.meta)
+
+`import.meta` serves as an object that contains context-specific information about the current module, such as it's URL. The object is extensible and writable, and can only be accessed inside a module.
+
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Nullish coalescing</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator)
+
+In essence, the nullish coalescing operator will return its right side when the left side is `null` or `undefined`. Other values (even ones that are 'falsy' like `''` or `0`) will be returned
+
+```javascript
+const foo = null ?? 'bar'; // foo: 'bar'
+const country = 'England' ?? 'USA'; // country: 'England'
+```
+
+This is particularly useful for adding default values, for say, a class, if those things are not passed into the constructor:
+
+```javascript
+class myClass {
+    constructor(name, options, items) {
+        this.name = name ?? 'default name';
+        this.options = options ?? {};
+        this.items = items ?? [];
+    }
+}
+```
+
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Optional chaining</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining)
+
+Optional chaining is useful when trying to get nested items inside an object, without having to validate your way through it. For example, we have an object `person` that may or may not have an `address.country` property
+
+```javascript
+const person = {
+    name: 'John Smith',
+    age: 46,
+}; // no address property
+
+console.log(person.address.country);
+// TypeError Cannot read property 'country' of undefined
+```
+
+If we try and access `address.country` then JavaScript will error because we will be trying to access `country` on something that doesn't exist. We can get around this by first checking if `address` exists, if so, access it's `country` property.
+
+```javascript
+if (person.address) {
+    console.log(person.address.country);
+}
+```
+
+However, when an object gets more complicated, and the property you want to access may be multiple levels deep, you could easily get tangled in a mess of checking whether each level exists before accessing it. Optional chaining alliviates this by only accessing the next level if it exists, otherwise, it will return `undefined`, the syntax is simply a question mark before the dot syntax: `?.`
+Using our example from above
+
+```javascript
+const person = {
+    name: 'John Smith',
+    age: 46,
+}; // no address property
+
+console.log(person.address?.country);
+// undefined
+```
+
+This works for properties even if they are functions
+
+```javascript
+person.actions.sayHello();
+// undefined
+```
+
+<h4 style="text-align:center;margin-top:2rem;margin-bottom:.1rem;">Other</h4>
+<div style="height:2px;background:black;margin-bottom:1rem;"></div>
+
+-   Increased standardization of `for-in` enumeration order,
+
+### 《<a id="resources"></a>Resources》
 
 This guide has been compiled from a number of resources listed below
 
-- [Mozilla Development Network](https://developer.mozilla.org/en-US/)
-- [FreeCodeCamp](https://www.freecodecamp.org/)
-- [ES6-features](http://es6-features.org/#Constants)
-- [Hacker Noon](https://hackernoon.com/)
+-   [Mozilla Development Network](https://developer.mozilla.org/en-US/)
+-   [FreeCodeCamp](https://www.freecodecamp.org/)
+-   [ES6-features](http://es6-features.org/#Constants)
+-   [Hacker Noon](https://hackernoon.com/)
