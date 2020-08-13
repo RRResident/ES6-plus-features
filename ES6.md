@@ -4,12 +4,7 @@
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const)
 
-```javascript
-var someVal = 123;
-var someVal = 456;
-```
-
-This is valid JavaScript, much to many people's fustration. Luckily since ES6, we are able to use constants by defining values using the `const` keyword
+`const` allows us to now declare constants in JS.
 
 ```javascript
 const someVal = 123;
@@ -17,23 +12,70 @@ someVal = 456; // error
 const someVal = 789; // error
 ```
 
-This only makes the variable itself immutable, not its content, so items in an array or object defined with `const` could be changed.
+`const` will make sure you don't change the type of data you declare initially, but you can mutate data like objects and arrays, this is valid.
+
+```javascript
+const someArr = [];
+someArr.push(123);
+someArr.push(456); // [123, 456] this won't error
+```
 
 ## Blocked scope variables with let !!
 
-[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let)
+`let` is another new way to declare variables, and it differs from `var` in a few ways. The first is
 
-As well as `const`, ES6 also introduced another keyword for defining variables: `let`.
-Variables defined with `var` are scoped to the immediate function body, whilst `let` variables are scoped to the immidiate code block `{}`. There a few more differences of note, [a great Stackoverflow answer breaks this down in depth](https://stackoverflow.com/questions/762011/whats-the-difference-between-using-let-and-var). In essence, the function scope of `var` was a common cause of bugs in JavaScript and `let` was aimed at changing that.
+#### Scope
+
+consider the function below
+
+```javascript
+function example() {
+    var bool = true;
+
+    if (bool) {
+        var someVar = 'var';
+        let someLet = 'let';
+    }
+
+    console.log(someVar); // no problems here
+    console.log(someLet); // ReferrenceError
+}
+```
+
+`var` variables **function scoped**, so the variable declared in our if block, was available elsewhere inside the `example` function. Our `let` variable is **block scoped** which means when declared, it's only available inside the block (in this case the `if` block) it's declared in.
+
+#### Hoisting
+
+Variables declared with `var` are hoisted, this means they are available in the script before actually being declared. This isn't the case with `let`, see the example:
+
+```javascript
+console.log(foo); // undefined
+var foo = 'foo';
+
+console.log(bar); // ReferrenceError
+let bar = 'bar';
+```
+
+#### Redeclaring
+
+You can redeclare a variable with `var`, now whilst you can actually do the same with `let`, you cannot do it with `let` in strict mode. Remember, modules are in strict mode by default. Trying to do so will cause an error
+
+```javascript
+var foo = 'foo';
+var foo = 'foo'; // this is fine
+
+let bar = 'bar'; // ReferrenceError (in strict mode)
+let bar = 'bar';
+```
 
 ## Arrow functions !!
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
 
-Ever seen `thiz = this` or `that = this`?
-Arrow functions differ to regular functions in many ways, but here I'll point out 2 things:
+Arrow functions are a short-hand alternative to regular functions. They have a shorthand syntax that have the following rules:
 
-1. Shorthand syntax
+-   parameters don't need to be wrapped if there is only one
+-   simple functions can omit the return keyword
 
 ```javascript
 function normalFunc(num) {
@@ -44,20 +86,17 @@ function normalFunc(num) {
 The same function as an arrow function
 
 ```javascript
-const arrowFunc = (num) => num + 1;
+const arrowFunc = (num) => num + 1; // return keyword omitted
 ```
 
-The parenthesis around the parameter are optional if there is only one, the brackets are also optional around the function body as is the `return` keyword if you have a simple one line code body.
-
-2. No separate `this`
-   This was an issue when defining 'methods' of 'classes' in JavaScript, where `SomeClass.prototype.someFunction`'s `this` would refer to _itself_, its own `this` rather than the instance. Arrow functions have no `this`, and using `this` in an arrow function that is an object method will refer to the instance. Nice.
+Arrow functions does not have its own bindings to a number of keywords in JS; `this`, `arguments`, `super`, or `new.target`, so they wouldn't be useful as methods.
 
 ## Default parameter values
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)
 
 When defining a function you may want some defaults if an argument isn't passed.
-Before ES6 you would have had to write some `if` logic inside the function like
+Before ES6 you would have had to write some `if` logic inside the function like this
 
 ```javascript
 function f(a, b, c) {
@@ -79,13 +118,15 @@ function f(a = 1, b, c) {
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters)
 
-'Rest' refers to remaining arguments passed to a function. In ES5 you'd end up with messy unreadable Array prototype functions to make this happen, but ES6:
+'Rest' refers to remaining arguments passed to a function consider the following function:
 
 ```javascript
 function f(a, b, ...restOfArgs) {
     // ...
 }
 ```
+
+The first two arguments passed to this function would be referenced as `a` and `b`, whilst any numner of additional arguments would be accessible as an array referenced as `restOfArgs`.
 
 ## Spread operator !!
 
@@ -145,7 +186,16 @@ const str = 'abc';
 const obj = { num, str }; // Instead of num: num, str: str
 ```
 
-Adding methods/functions to objects now omits the `function` keyword when defining the object. Also when defining your object you can have computed names like so;
+Adding methods/functions to objects now omits the `function` keyword when defining the object.
+
+```javascript
+const foo = {
+    oldWay: function() {...},
+    newWay() {...}
+}
+```
+
+Also when defining your object you can have computed names like so;
 
 ```javascript
 const num = 1;
@@ -171,7 +221,12 @@ const { val2 } = obj;
 val2; // 456
 ```
 
-When destructuring you can include defaults for if a value isn't there. For more details check out the MDN docs.
+When destructuring you can include defaults for if a value isn't there like this
+
+```javascript
+const arr = ['a', 'c'];
+const [a, b = 'b', c] = arr; // defaults b to 'b' if found to be undefined
+```
 
 ## Modules !!
 
