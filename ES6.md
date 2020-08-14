@@ -232,18 +232,24 @@ const [a, b = 'b', c] = arr; // defaults b to 'b' if found to be undefined
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
 
-Modules are a game changer, they allow for importing and exporting of values to and from modules without global namespace pollution.
+Modules are not a new concept for JavaScript, but ES6 introduced ESM, the official ECMAScript module system.
 
 ```javascript
 // some-library.js
 export const myObj = { a: 1, b: 2 };
 
+// some-other-library.js
+default export class myClass {
+    ...
+}
+
 // SomeApp.js
+import myClass from 'some-other-library';
 import { myObj } from 'some-library';
 myObj.a; // 1
 ```
 
-You can mark values for export and also mark default exports. Default exports can be imported in directly whilst other exports can be imported in using `{}`. Whilst browser support is still iffy for modules, it's common to use a bundler like [Webpack](https://webpack.js.org/) to bundle all your modules together for delivery to the browser.
+Values can be named or default exports like in the example above. Default exports can be imported in directly whilst other exports can be imported in using destructuring `{}`. Whilst browser support is generally good for modules, it's common to use a bundler like [Webpack](https://webpack.js.org/) to bundle all your modules together for delivery to the browser.
 
 ## Classes !!
 
@@ -272,7 +278,7 @@ class User {
 }
 ```
 
-Classes can inherit from other classes with the `extends` keyword, it also offers easy access to its base class constructor with `super()`, and methods like `toString()`. You can also declare static methods with the `static` keyword. You can also set getters and setters directly within the class.
+Classes can inherit properties from other classes with the `extends` keyword, it also offers easy access to its base class constructor with `super()`, and methods like `toString()`. You can also declare static methods with the `static` keyword. You can also set getters and setters directly within the class.
 
 ```javascript
 class Phone {
@@ -280,13 +286,14 @@ class Phone {
     this._screenWidth = _screenWidth;
     this.screenHeight = screenHeight;
   }
+
   set width (screenWidth) {this._screenWidth = screenWidth}
   get width () {return this._screenWidth}
   get screenSize () {return return this._screenWidth * return this.screenHeight}
 }
 ```
 
-There is a lot to know about ES6 classes, refer to the MDN docs.
+Under the hood these are still JS objects.
 
 ## Symbols
 
@@ -302,11 +309,30 @@ sym1 === sym2; // false
 
 Every symbol, whether passed (the optional) value or not, is unique, comparing two of them will never return `true`.
 
+Symbols are particularly useful as unique keys for objects, consider the following example:
+
+```javascript
+function addProp(object, key, value) {
+    object[key] = value;
+}
+
+const obj = {};
+const somePropSymbol1 = Symbol();
+const somePropSymbol2 = Symbol();
+
+addProp(obj, somePropSymbol1, 32);
+addProp(obj, somePropSymbol2, 44);
+
+// obj: {Symbol(): 32, Symbol(): 44}
+```
+
+Whilst `Object.keys` won't return our `Symbol` properties, someone could still access it with `Reflect.ownKeys`, so it isn't truely private perse, but it will always be unique in an object / class.
+
 ## Iterators and generators
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)
 
-Iterators are new constructs (in JavaScript) for iterating across data, giving us the ability to access data via an interface which determins how we can iterate over the object.
+Iterators (in this ES6 format) are new constructs (in JavaScript) for iterating across data, giving us the ability to access data via an interface which determines _how_ we can iterate over the object.
 An example:
 
 ```javascript
@@ -320,40 +346,13 @@ This looks like regular looping, but under the hood, this construct lets the obj
 
 ```javascript
 let letters = ['a', 'b', 'c'];
-let lettersIterator = [Symbol.iterator]();
+let lettersIterator = letters[Symbol.iterator]();
 lettersIterator.next(); // {value: "a", done: false}
 // ...
 lettersIterator.next(); // {value: undefined, done: true}
 ```
 
-The iterations return an iterator object that contains the value and a `done` property that returns true when iterating has complete. We can now also create custom interators for our objects. They are objects with one property: `[Symbol.iterator]`, which will resolve to a unique value, unable to be duplicated. This property's value is a function which returns an object. To call this, we would
-
-```javascript
-const characters = {
-  nintendo: 'Mario',
-  microsoft: 'Master Chief,
-  sega: 'Sonic'
-}
-
-let count = 0;
-const iterable = {
-  [Symbol.iterator]() {
-    return {
-      next() {
-        count++;
-        switch(count) {
-          case 1:
-            return {value: chracters.nintendo, done: false;}
-            // ...
-        }
-      }
-    }
-};
-
-let iterable = iterator[Symbol.iterator]();
-
-iterable.next(); // { value: 'Mario', done: false }
-```
+We can define an object as an iterable by implementing the `iterator` method (`[Symbol.iterator()]`).
 
 Generators are in essence functions that are wrappers for iterators. They are created with `function*`, and returns a generator object. These functions can be 'paused' between returning values using the `yield` keyword.
 
@@ -364,20 +363,20 @@ function* generatorFunc(i) {
 }
 
 let generator = generatorFunc(2); // Creates generator object
-generator.next(); // {value: 5, done: false}
+generator.next(); // {value: 2, done: false}
 ```
 
 ## Set (data structure)
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)
 
-JavaScript now has sets, these are lists of values similar to arrays but can only contain unique values. They have their own methods with names that differ from arrays for some reason.
+JavaScript now has sets, these are lists of values similar to arrays but can only contain unique values, duplicates will not be added. They have their own methods with names that differ from arrays for some reason.
 
 ```javascript
 let s = new Set();
 s.add(1);
 s.add(2);
-s.add(1);
+s.add(1); // won't be added as set already has 1
 s.size; // 2
 ```
 
@@ -390,7 +389,7 @@ A map object, like normal objects, holds key-value pairs and remembers the order
 ```javascript
 const mapObj = new Map();
 mapObj.set(Symbol(), 1);
-map.Obj.set({ keyName: 'key' }, 'value');
+map.Obj.set({ keyName: 'key' }, 'value'); // key here is an object
 ```
 
 ## Weakset and Weakmap (data structure)
@@ -414,12 +413,18 @@ Typed arrays are arrays where the contents are strictly controlled, every elemen
 Say we wanted to create an array of only 8bit integers, we would use one of the new constructors (see MDN for a full list) for 8bit integers which is `Int8Array()`
 
 ```javascript
-const 8bitIntTypedArray = new Int8Array();
+const typedArray = new Int8Array(8);
+// [0, 0, 0, 0, 0, 0, 0, 0]
+typedArray[0] = 32;
+typedArray[0]; // 32
+typedArray[1] = 'some string'; // won't be set
+typedArray[10] = 123;
+typedArray[10]; // undefined as only 8 indexes
 ```
 
-There are signed, unsigned, and clamped varients for 8, 16, 32, float32, float64 types. Support for `bigint`s was added in ES7.
+There are signed, unsigned, and clamped varients for 8, 16, 32, float32, float64 types. Support for `bigint`s was added later.
 
-In addition is a container called `ArrayBuffer`, which is a generic, fixed-length, raw binary data buffer. You cannot interact with it directly, for that we make use of the `DataView`, this is what has the `get` and `set` methods. Typed arrays shared a lot of funtionality/methods as normal arrays such as `forEach`, `map` etc.
+In addition is a container called `ArrayBuffer`, which is a generic, fixed-length, raw binary data buffer. You cannot interact with it directly, for that we make use of the `DataView`, this is what has the `get` and `set` methods. Typed arrays share a lot of funtionality/methods as normal arrays such as `forEach`, `map` etc.
 
 ```javascript
 const buffer = new ArrayBuffer(16); // creates 16 byte buffer
@@ -429,11 +434,9 @@ view.setInt8(1, 10); // in slot 1 set 10
 view.getInt8(1); // returns 10
 ```
 
-TODO:
-
 ## New built in methods
 
-Adding functionality to existing types: objects, arrays, strings and numbers
+Added functionality to existing types: objects, arrays, strings and numbers
 
 1. `Object.assign()`, can assign enumerable properties of one or more source objects into a destination object
 
@@ -447,9 +450,9 @@ dest.prop2; // "b"
 dest.prop4; // "c"
 ```
 
-2. `Array.find()` and `Array.findindex()` are two new functions to find elements in arrays.
-   `Array.find()` returns the value of the first element in the array that satisfies the testing function.
-   `Array.findIndex()` will return the value's index.
+2. `Array.prototype.find()` and `Array.prototype.findindex()` are two new functions to find elements in arrays.
+   `Array.prototype.find()` returns the value of the first element in the array that satisfies the testing function.
+   `Array.prototype.findIndex()` will return the value's index.
 
 ```javascript
 [1, 3, 4, 2]
@@ -457,7 +460,7 @@ dest.prop4; // "c"
     [(1, 3, 4, 2)].findIndex((x) => x > 3); // 2
 ```
 
-3. `String.repeat()` gets passed a number of times to return a repeat of the string it is called on.
+3. `String.prototype.repeat()` gets passed a number of times to return a repeat of the string it is called on.
 
 ```javascript
 let yo = 'yo';
@@ -486,7 +489,7 @@ It can return `true` or `false`.
 
 7. `Number.EPSIOLON` isn't a method, it holds a value which is `2.2204460492503130808472633361816E-16`, which represents the difference between 1 and the smallest floating point number greater than 1.
 
-8. `Math.trunc()` is a method that drops the fractional part of a number, like a round down to a whole number.
+8. `Math.trunc()` is a method that drops the fractional part of a number, like a round down to a whole number. It differs from `Math` object's other methods as it doesn't actually do any math, it simply cuts off the `.` and any numbers after it, no matter if it's a positive or negative number.
 
 ```javascript
 Math.trunc(11.6); // 11
@@ -498,7 +501,7 @@ Math.trunc(11.6); // 11
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 
-Goodbye `$.ajax()`! ES6 brings us built in promises, which are objects that represent the eventual completion (or failure) of an ansychronous operation and its resulting value.
+ES6 brings us built in promises, which are objects that represent the eventual completion (or failure) of an ansychronous operation and its resulting value.
 There is a lot to know about promises, but in essence you tell JavaScript to do something, and once done _then_ run some code, or if it fails, run some other code, a simplified example below:
 
 ```javascript
@@ -508,13 +511,13 @@ doSomethingAsync().then(doSomethingOnSuccess).catch(doSomethingOnFail);
 Promises are a powerful and complex tool in JavaScript, and are especially useful for making calls to APIs, for example when using `fetch()` (browser API), as calling `fetch()` returns a promise.
 
 ```javascript
-fetch('http://www.someurl.com')
-    .then(doSomethingWithReturnedData)
-    .catch(logErrorMessage);
+fetch('http://www.someurl.com') // after a delay, data returns
+    .then(doSomethingWithReturnedData) // if successful, pass to this function
+    .catch(logErrorMessage); // if failed, do something with the error
 ```
 
 These are simplifed examples, `then`s can be chained to allow for a lot of functionality to run on resolve/reject cases of a promise.
-The functions to run on resolve or reject are non blocking, and will only run once the call stack is clear and all normal code has finished running.
+The functions run on resolve or reject are non blocking, whilst described as 'asynchronous' JS, what's really happening is the functionality is being **deffered** by getting moved to a special call stack and running after all global code has finished executing.
 
 You can create your own promise objects, below is a simple example where a "call" for a user from a database is made inside a promise. If the call is successful, we call resolve and pass the data we retrieve. If the call fails for some reason, we pass in an error message.
 Further down we add some functionality for what should happen should the promise succeed or fail. This code will happen once it get's resolved and the main call stack is clear.
@@ -578,7 +581,7 @@ person.age = '100'; // returns TypeError - 'Age is not an integer'
 person.age = 999; // returns RangeError - 'The age is too high'
 ```
 
-The `proxy` object is highly customizable and is able to assist in real world applications with things like validation.
+The `proxy` object is highly customizable and is able to assist in real world applications with things like validation. [TypeScript](https://www.typescriptlang.org/) which is a superset of JS that makes use of type-checking and interfaces, however there isn't currently a way in TypeScript to set limits on a property like we do with the `proxy` object. This can only be checked / enforced at runtime.
 
 ## Reflect object
 
@@ -615,8 +618,51 @@ let britishPounds = new Intl.NumberFormat('en-GB', {
 britishPounds.format(10300); // "£10,300.00"
 ```
 
+This is useful for properly formatting dates and numbers with the use of a locale string like `en-US`
+
+## Octal and binary literals
+
+You can now create octal literals with the `0o` prefix, and it will only accept characters 0 -7
+
+```javascript
+let a = 0o54;
+let b = 0o58; // SyntaxError
+```
+
+ES6 also added support for binary literals with the `0b` prefix, valid numbers are `1` and `0`
+
+```javascript
+let a = 0b111;
+```
+
+## Regex / string extended unicode support
+
+Strings have some additional methods that can assist with unicode quirks.
+`String.prototype.codePointAt()` is a method that returns the unicode code point value.
+
+```javascript
+let star = '★';
+star.codePointAt(0); // '9733'
+```
+
+`String.fromCodePoint()` is a method that returns a string, it takes the code point value
+
+```javascript
+String.fromCodePoint(9733); // ★ (star emoji)
+```
+
+`String.prototype.normalize()` is a method that can normalize unicode values, as the same character could be created with different unicode string.
+
+```javascript
+let string1 = '\u00F1';
+let string2 = '\u006E\u0303';
+
+console.log(string1); //  ñ
+console.log(string2); //  ñ
+```
+
+`nomalize()` takes a form parameter and will normalize the unicode string to the specified form.
+
 ## Other
 
--   Direct support for safe binary and octal literals.
--   Extended support for using unicode within strings and regular expressions.
 -   Enhanced regular expressions.
