@@ -42,11 +42,11 @@ function example() {
 }
 ```
 
-`var` variables **function scoped**, so the variable declared in our if block, was available elsewhere inside the `example` function. Our `let` variable is **block scoped** which means when declared, it's only available inside the block (in this case the `if` block) it's declared in.
+`var` variables **function scoped**, so the variable declared in our if block was available elsewhere inside the `example` function. Our `let` variable is **block scoped** which means when declared, it's only available inside the block (in this case the `if` block) it's declared in.
 
 #### Hoisting
 
-Variables declared with `var` are hoisted, this means they are available in the script before actually being declared. This isn't the case with `let`, see the example:
+Variables declared with `var` are hoisted, this means they are available in the script (as in, created yet undefined) before actually being declared. This isn't the case with `let`, see the example:
 
 ```javascript
 console.log(foo); // undefined
@@ -89,7 +89,7 @@ The same function as an arrow function
 const arrowFunc = (num) => num + 1; // return keyword omitted
 ```
 
-Arrow functions does not have its own bindings to a number of keywords in JS; `this`, `arguments`, `super`, or `new.target`, so they wouldn't be useful as methods.
+Arrow functions do not have its own bindings to a number of keywords in JS; `this`, `arguments`, `super`, or `new.target`, so they wouldn't be useful as methods for objects.
 
 ## Default parameter values
 
@@ -126,7 +126,7 @@ function f(a, b, ...restOfArgs) {
 }
 ```
 
-The first two arguments passed to this function would be referenced as `a` and `b`, whilst any numner of additional arguments would be accessible as an array referenced as `restOfArgs`.
+The first two arguments passed to this function would be referenced as `a` and `b`, whilst any number of additional arguments would be accessible as an array referenced as `restOfArgs`.
 
 ## Spread operator !!
 
@@ -163,9 +163,9 @@ It also supports mutli line and indented strings, no need to add `\t` and so on.
 
 ```javascript
 const htmlBlock = `
-<header>
-  <h1>${title}</h1><i class=${logoClass}></i>
-</header>
+    <header>
+        <h1>${title}</h1><i class=${logoClass}></i>
+    </header>
 `;
 ```
 
@@ -239,12 +239,12 @@ Modules are not a new concept for JavaScript, but ES6 introduced ESM, the offici
 export const myObj = { a: 1, b: 2 };
 
 // some-other-library.js
-default export class myClass {
+default export class MyClass {
     ...
 }
 
 // SomeApp.js
-import myClass from 'some-other-library';
+import MyClass from 'some-other-library';
 import { myObj } from 'some-library';
 myObj.a; // 1
 ```
@@ -262,6 +262,7 @@ function User(name, email) {
     this.name = name;
     this.email = email;
 }
+
 User.prototype.someMethod = function () {};
 ```
 
@@ -348,13 +349,13 @@ This looks like regular looping, but under the hood, this construct lets the obj
 let letters = ['a', 'b', 'c'];
 let lettersIterator = letters[Symbol.iterator]();
 lettersIterator.next(); // {value: "a", done: false}
-// ...
+// ...iterate until the end
 lettersIterator.next(); // {value: undefined, done: true}
 ```
 
 We can define an object as an iterable by implementing the `iterator` method (`[Symbol.iterator()]`).
 
-Generators are in essence functions that are wrappers for iterators. They are created with `function*`, and returns a generator object. These functions can be 'paused' between returning values using the `yield` keyword.
+Generators are in essence functions that are wrappers for iterators. They are created with `function*`, and return a generator object. These functions can be 'paused' between returning values using the `yield` keyword.
 
 ```javascript
 function* generatorFunc(i) {
@@ -373,7 +374,7 @@ generator.next(); // {value: 2, done: false}
 JavaScript now has sets, these are lists of values similar to arrays but can only contain unique values, duplicates will not be added. They have their own methods with names that differ from arrays for some reason.
 
 ```javascript
-let s = new Set();
+const s = new Set();
 s.add(1);
 s.add(2);
 s.add(1); // won't be added as set already has 1
@@ -389,7 +390,7 @@ A map object, like normal objects, holds key-value pairs and remembers the order
 ```javascript
 const mapObj = new Map();
 mapObj.set(Symbol(), 1);
-map.Obj.set({ keyName: 'key' }, 'value'); // key here is an object
+map.Obj.set({ keyName: 'key' }, 'value'); // this key is an object, invalid for regular objects
 ```
 
 ## Weakset and Weakmap (data structure)
@@ -422,9 +423,9 @@ typedArray[10] = 123;
 typedArray[10]; // undefined as only 8 indexes
 ```
 
-There are signed, unsigned, and clamped varients for 8, 16, 32, float32, float64 types. Support for `bigint`s was added later.
+There are signed, unsigned, and clamped varients for 8, 16, 32, float32, float64 types. Support for `bigint`s was added in ES2020.
 
-In addition is a container called `ArrayBuffer`, which is a generic, fixed-length, raw binary data buffer. You cannot interact with it directly, for that we make use of the `DataView`, this is what has the `get` and `set` methods. Typed arrays share a lot of funtionality/methods as normal arrays such as `forEach`, `map` etc.
+In addition to this is a container called `ArrayBuffer`, which is a generic, fixed-length, raw binary data buffer. You cannot interact with it directly, for that we make use of the `DataView`, this is what has the `get` and `set` methods. Typed arrays share a lot of funtionality/methods as normal arrays such as `forEach`, `map` etc.
 
 ```javascript
 const buffer = new ArrayBuffer(16); // creates 16 byte buffer
@@ -487,7 +488,7 @@ yo.repeat(5); // yo yo yo yo yo
 
 It can return `true` or `false`.
 
-7. `Number.EPSIOLON` isn't a method, it holds a value which is `2.2204460492503130808472633361816E-16`, which represents the difference between 1 and the smallest floating point number greater than 1.
+7. `Number.EPSIOLON` is a new property, it holds the value `2.2204460492503130808472633361816E-16`, which represents the difference between 1 and the smallest floating point number greater than 1.
 
 8. `Math.trunc()` is a method that drops the fractional part of a number, like a round down to a whole number. It differs from `Math` object's other methods as it doesn't actually do any math, it simply cuts off the `.` and any numbers after it, no matter if it's a positive or negative number.
 
@@ -502,13 +503,13 @@ Math.trunc(11.6); // 11
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 
 ES6 brings us built in promises, which are objects that represent the eventual completion (or failure) of an ansychronous operation and its resulting value.
-There is a lot to know about promises, but in essence you tell JavaScript to do something, and once done _then_ run some code, or if it fails, run some other code, a simplified example below:
+There is a lot to know about promises, but in essence you tell JavaScript to do something, and once done _then_ run some code, or if it errors, run some other code, a simplified example below:
 
 ```javascript
 doSomethingAsync().then(doSomethingOnSuccess).catch(doSomethingOnFail);
 ```
 
-Promises are a powerful and complex tool in JavaScript, and are especially useful for making calls to APIs, for example when using `fetch()` (browser API), as calling `fetch()` returns a promise.
+Promises are a powerful and complex tool in JavaScript, and are especially useful for making calls to external APIs, for example when using `fetch()` (browser API), as calling `fetch()` returns a promise.
 
 ```javascript
 fetch('http://www.someurl.com') // after a delay, data returns
@@ -561,7 +562,7 @@ const handlerObject = {
     set: (obj, prop, value) => {
         if (prop === 'age') {
             if (!Number.isInteger(value)) {
-                throw new TypeError('Age is not an integer');
+                throw new TypeError('Age should be integer');
             }
 
             if (value > 200) {
@@ -577,11 +578,11 @@ const handlerObject = {
 
 const person = new Proxy({}, handlerObject);
 person.age = 100; // Passes validation
-person.age = '100'; // returns TypeError - 'Age is not an integer'
+person.age = '100'; // returns TypeError - 'Age should be an integer'
 person.age = 999; // returns RangeError - 'The age is too high'
 ```
 
-The `proxy` object is highly customizable and is able to assist in real world applications with things like validation. [TypeScript](https://www.typescriptlang.org/) which is a superset of JS that makes use of type-checking and interfaces, however there isn't currently a way in TypeScript to set limits on a property like we do with the `proxy` object. This can only be checked / enforced at runtime.
+The `proxy` object is highly customizable and is able to assist in real world applications with things like validation. [TypeScript](https://www.typescriptlang.org/) is a superset of JS that makes use of type-checking and interfaces, however there isn't currently a way in TypeScript to set limits on a property like we do with the `proxy` object. This can only be checked / enforced at runtime.
 
 ## Reflect object
 
@@ -638,6 +639,9 @@ let a = 0b111;
 ## Regex / string extended unicode support
 
 Strings have some additional methods that can assist with unicode quirks.
+
+#### String.prototype.codePointAt()
+
 `String.prototype.codePointAt()` is a method that returns the unicode code point value.
 
 ```javascript
@@ -645,11 +649,15 @@ let star = '★';
 star.codePointAt(0); // '9733'
 ```
 
+#### String.fromCodePoint()
+
 `String.fromCodePoint()` is a method that returns a string, it takes the code point value
 
 ```javascript
 String.fromCodePoint(9733); // ★ (star emoji)
 ```
+
+#### String.prototype.normalize()
 
 `String.prototype.normalize()` is a method that can normalize unicode values, as the same character could be created with different unicode string.
 
@@ -663,6 +671,51 @@ console.log(string2); //  ñ
 
 `nomalize()` takes a form parameter and will normalize the unicode string to the specified form.
 
-## Other
+## Enhanced regular expressions
 
--   Enhanced regular expressions.
+#### Sticky flag /y
+
+ES6 introduces a new 'sticky' flag `/y` which starts searching for matches after `re.lastIndex` (this is the index _after_ the last match). If matched, it will set the `re.lastIndex` once again to the index after this match.
+
+```javascript
+const str = 'hello world';
+const regex = /llo/y;
+
+regex.test(str); // true, finds a match, lastIndex is now 4
+regex.test(str); // false, no match after index position 4
+```
+
+There is also a `re.sticky` propery which will return true if the regex has the sticky flag.
+
+#### Unicode flag /u
+
+This new flag turns on a special unicode mode for regex. This allows using unicode point code escape sequences like `\u{1T52A}`. Let's say you are trying to match the sequence against its emoji, without the `/u` flag, this wouldn't work
+
+```javascript
+/\u{1f40e}/.test('🐎'); // false
+```
+
+This is because normal regex won't read this correctly having to escape the `/u` at the start. Adding the `/u` flag gives regex a different set of rules, and the below is now checked correctly.
+
+```javascript
+/\u{1f40e}/u.test('🐎'); // true
+```
+
+Regex also now have a `unicode` property which returns true if the regex makes use of the `/u` flag.
+
+#### flags property
+
+You can now get the flags from a regex by accessing its `flags` property
+
+```javascript
+/hello/gi.flags; // gi
+```
+
+#### RegExp() copies
+
+You can now use the regex construtor to create copies and even change flags of your regex.
+
+```javascript
+const regex = /abc/gi; // i and g flags set
+new RegExp(regex, 'i'); // /abc/i
+```
