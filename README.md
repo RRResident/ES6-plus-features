@@ -1,12 +1,10 @@
-This is work in progress! There are still many details and sections missing, you may see a few TODO:'s dotted around as well.
-
 # ECMAScript 2015 (ES6) + Features
 
 ## Intro
 
 This is a guide I have wrote for myself (and for anyone else) that introduces features of the various ECMAScript versions since ECMAScript 2015, with some useful links and examples. The more notable features are marked with a `!!` to be easily searchable.
 
-Iterations are divided into separate markdown files (ES6, ES7 etc)
+Iterations are divided into separate files
 You can find them here:
 
 1. [ECMAScript 2015 (ES6)](./ES6.md)
@@ -24,3 +22,5 @@ This guide has been compiled from a number of resources listed below
 -   [FreeCodeCamp](https://www.freecodecamp.org/)
 -   [ES6-features](http://es6-features.org/#Constants)
 -   [Hacker Noon](https://hackernoon.com/)
+-   [2ality](https://2ality.com/)
+-   [StackOverFlow](https://stackoverflow.com/)

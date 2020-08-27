@@ -51,8 +51,9 @@ let codes = ['3', '45', '722'];
 codes.map((code) => {
     code = code.padStart(5, '0'); // pad it to length of 5 with 0's
 });
-codes;
+
 /*
+codes:
  * 00003
  * 00045
  * 00722
@@ -76,7 +77,7 @@ personDescriptors.name.writable; // true
 personDescriptors.age.value; // 44
 ```
 
-TODO:
+Some other descriptors include `configurable`, `enumerable` etc
 
 ## Trailing commas in function parameters
 
@@ -89,9 +90,7 @@ function trailingCommas(
     arg1,
     arg2,
     arg3 // A comma here won't error
-) {
-    // ...
-}
+) {}
 ```
 
 ## Async await !!
@@ -114,12 +113,14 @@ const makeRequest = async () => {
 makeRequest().then((result) => console.log(result));
 ```
 
-In the above example, the `await` keyword 'awaits' for the promise to resolve, it then saves the resolved data into the constant on the left.
-Syntactically `async await` is much easier to understand, its code is cleaner, and it is easier to debug.
+In the above example, the `await` keyword 'awaits' for the promise to resolve, it then saves the resolved data as a constant.
+Syntactically `async await` is much easier to understand, its code is cleaner, and it is easier to debug compared to plain promises.
 
 ## Shared memory and atomics
 
-// TODO
+The `Atomics` object, like `Math` cannot be instantiated, instead it has static methods and properties we can access. This is part of a a plan to allow a kind of multi-threading feature in JavaScript allowing developers to manage memory themselves, rather than the JS engine. This is done using the new `SharedArrayBuffer` object which esentially stores data in a shared memory space, using it makes data available to the JS engine and web worker threads.
+
+// TODO:
 To read about this check out
 [Atomics on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics)
 [SharedArrayBuffer on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer)
