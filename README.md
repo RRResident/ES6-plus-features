@@ -26,3 +26,5 @@ This guide has used a number of resources as references, listed below;
 -   [Hacker Noon](https://hackernoon.com/)
 -   [2ality](https://2ality.com/)
 -   [StackOverFlow](https://stackoverflow.com/)
+-   [Medium](https://medium.com)
+-   [v8.dev](https://v8.dev/)
