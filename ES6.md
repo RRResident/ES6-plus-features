@@ -42,7 +42,7 @@ function example() {
 }
 ```
 
-`var` variables **function scoped**, so the variable declared in our if block was available elsewhere inside the `example` function. Our `let` variable is **block scoped** which means when declared, it's only available inside the block (in this case the `if` block) it's declared in.
+`var` variables are **function scoped**, so the variable declared in our if block was available elsewhere inside the `example` function. Our `let` variable is **block scoped** which means when declared, it's only available inside the block (in this case the `if` block) it's declared in.
 
 #### Hoisting
 
