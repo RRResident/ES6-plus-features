@@ -1,6 +1,6 @@
 # ECMAScript 2015 (ES6)
 
-## Constants !!
+## Constants !!!
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const)
 
@@ -20,7 +20,7 @@ someArr.push(123);
 someArr.push(456); // [123, 456] this won't error
 ```
 
-## Blocked scope variables with let !!
+## Blocked scope variables with let !!!
 
 `let` is another new way to declare variables, and it differs from `var` in a few ways. The first is
 
@@ -68,7 +68,7 @@ let bar = 'bar'; // ReferrenceError (in strict mode)
 let bar = 'bar';
 ```
 
-## Arrow functions !!
+## Arrow functions !!!
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
 
@@ -114,7 +114,7 @@ function f(a = 1, b, c) {
 }
 ```
 
-## Rest parameter !!
+## Rest parameter !!!
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters)
 
@@ -128,7 +128,7 @@ function f(a, b, ...restOfArgs) {
 
 The first two arguments passed to this function would be referenced as `a` and `b`, whilst any number of additional arguments would be accessible as an array referenced as `restOfArgs`.
 
-## Spread operator !!
+## Spread operator !!!
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
 
@@ -139,7 +139,7 @@ const someArr = [1, 2, 3];
 const someOtherArr = [...someArr, 4, 5, 6]; // [1, 2, 3, 4, 5, 6]
 ```
 
-## Template literals !!
+## Template literals !!!
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 
@@ -204,7 +204,7 @@ const obj {
 }
 ```
 
-## Destructuring !!
+## Destructuring !!!
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
 
@@ -228,7 +228,7 @@ const arr = ['a', 'c'];
 const [a, b = 'b', c] = arr; // defaults b to 'b' if found to be undefined
 ```
 
-## Modules !!
+## Modules !!!
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
 
@@ -251,7 +251,7 @@ myObj.a; // 1
 
 Values can be named or default exports like in the example above. Default exports can be imported in directly whilst other exports can be imported in using destructuring `{}`. Whilst browser support is generally good for modules, it's common to use a bundler like [Webpack](https://webpack.js.org/) to bundle all your modules together for delivery to the browser.
 
-## Classes !!
+## Classes !!!
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
 
@@ -439,7 +439,9 @@ view.getInt8(1); // returns 10
 
 Added functionality to existing types: objects, arrays, strings and numbers
 
-1. `Object.assign()`, can assign enumerable properties of one or more source objects into a destination object
+#### Object.assign()
+
+`Object.assign()` can assign enumerable properties of one or more source objects into a destination object
 
 ```javascript
 let dest = { prop1: 'a' };
@@ -451,9 +453,9 @@ dest.prop2; // "b"
 dest.prop4; // "c"
 ```
 
-2. `Array.prototype.find()` and `Array.prototype.findindex()` are two new functions to find elements in arrays.
-   `Array.prototype.find()` returns the value of the first element in the array that satisfies the testing function.
-   `Array.prototype.findIndex()` will return the value's index.
+#### Array.prototype.find() and findIndex()
+
+`Array.prototype.find()` and `Array.prototype.findIndex()` are two new functions to find elements in arrays. `Array.prototype.find()` returns the value of the first element in the array that satisfies the testing function. `Array.prototype.findIndex()` will return the value's index.
 
 ```javascript
 [1, 3, 4, 2]
@@ -461,14 +463,18 @@ dest.prop4; // "c"
     [(1, 3, 4, 2)].findIndex((x) => x > 3); // 2
 ```
 
-3. `String.prototype.repeat()` gets passed a number of times to return a repeat of the string it is called on.
+#### String.prototype.repeat()
+
+This new method gets passed a number of times to return a repeat of the string it is called on.
 
 ```javascript
 let yo = 'yo';
 yo.repeat(5); // yo yo yo yo yo
 ```
 
-4. 5 new methods for strings that allow searching for substrings. These string methods are all self explanatory, the optional argument is the position in the string to start searching.
+#### String substring methods
+
+5 new methods for strings that allow searching for substrings. These string methods are all self explanatory, the optional argument is the position in the string to start searching.
 
 ```javascript
 'hello'.startsWith('ello', 1); // true
@@ -478,9 +484,13 @@ yo.repeat(5); // yo yo yo yo yo
 'hello'.includes('ell', 2); // false
 ```
 
-5. `Number.isNan()` and `Number.isFinite()` Number type checking are new built in methods to check for these specific types of numbers.
+#### Number.isNan() and isFinite()
 
-6. `Number.isSafeInteger()` is a method that determines whether the provided value is a number that is a 'safe' integer (hence the name), this mean it can:
+`Number.isNan()` and `Number.isFinite()` Number type checking are new built in methods to check for these specific types of numbers.
+
+#### Number.isSafeInteger()
+
+`Number.isSafeInteger()` is a method that determines whether the provided value is a number that is a 'safe' integer (hence the name), this mean it can:
 
 -   be exactly represented as an IEEE-754 double precision number
     and its
@@ -488,17 +498,23 @@ yo.repeat(5); // yo yo yo yo yo
 
 It can return `true` or `false`.
 
-7. `Number.EPSIOLON` is a new property, it holds the value `2.2204460492503130808472633361816E-16`, which represents the difference between 1 and the smallest floating point number greater than 1.
+#### Number.EPSIOLON
 
-8. `Math.trunc()` is a method that drops the fractional part of a number, like a round down to a whole number. It differs from `Math` object's other methods as it doesn't actually do any math, it simply cuts off the `.` and any numbers after it, no matter if it's a positive or negative number.
+`Number.EPSIOLON` is a new property, it holds the value `2.2204460492503130808472633361816E-16`, which represents the difference between 1 and the smallest floating point number greater than 1.
+
+#### Math.trunc()
+
+`Math.trunc()` is a method that drops the fractional part of a number, like a round down to a whole number. It differs from `Math` object's other methods as it doesn't actually do any math, it simply cuts off the `.` and any numbers after it, no matter if it's a positive or negative number.
 
 ```javascript
 Math.trunc(11.6); // 11
 ```
 
-9. `Math.sign()` method either returns a positive or a negative, in other words, if passed a positive number it will return `1`, or `-1` for a negative number. It will return `0` if passed a `0`, same with `-0`. Anything else will return `NaN`.
+#### Math.sign()
 
-## Promises !!
+`Math.sign()` method either returns a positive or a negative, in other words, if passed a positive number it will return `1`, or `-1` for a negative number. It will return `0` if passed a `0`, same with `-0`. Anything else will return `NaN`.
+
+## Promises !!!
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 

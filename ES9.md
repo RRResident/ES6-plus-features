@@ -6,12 +6,21 @@
 
 There are 4 changes to regex in JS, [explained in detail in this article by Faraz Kelhini](https://www.smashingmagazine.com/2019/02/regexp-features-regular-expressions/#lookbehind-assertions), brief descriptions below:
 
-1. `s` flag
-   To add to the regex flags like `g` (matches multple times), or `i` (makes regex case insensitive), we now have `s` which causes the `.` to also match new line characters.
-2. Named capture groups. Say you have a regex like `/www\.(\w*)\.(\w*)/` you wanted to grab the subdomain and top level domain from, once you create a match object, you would have to pull the groups out by numbers with `match[1]` etc, which makes things difficult when there are many groups. Now JavaScript has named capture groups that make this easier using `(?<name>)`, so we could do the above using `/www\.(?<subdomain>\w*)\.(?<topleveldomain>\w*)/` and pulling out the groups using `match.groups.subdomain`.
-3. Look behind assertions. Prior to ES9, only look ahead assertions were available in JavaScript, now you can use `(?<=...)` to only match expressions that follow a pattern.
-4. Unicode property escapes
-   You can now search for special characters by mentioning their unicode character property inside of a `/p{}`. Unicode characters have a lot of properties, for example `Letter` matches any unicode that represents a letter in any language, so we could write `/p{Letter}` to match these.
+#### /s flag
+
+To add to the regex flags like `g` (matches multple times), or `i` (makes regex case insensitive), we now have `s` which causes the `.` to also match new line characters.
+
+#### Named capture groups
+
+Say you have a regex like `/www\.(\w*)\.(\w*)/` you wanted to grab the subdomain and top level domain from, once you create a match object, you would have to pull the groups out by numbers with `match[1]` etc, which makes things difficult when there are many groups. Now JavaScript has named capture groups that make this easier using `(?<name>)`, so we could do the above using `/www\.(?<subdomain>\w*)\.(?<topleveldomain>\w*)/` and pull out the groups using `match.groups.subdomain`.
+
+#### Look behind assertions
+
+Prior to ES9, only look ahead assertions were available in JavaScript, now you can use `(?<=...)` to only match expressions that _come after_ a pattern.
+
+#### Unicode property escapes
+
+You can now search for special characters by mentioning their unicode character property inside of a `/p{}`. Unicode characters have a lot of properties, for example `Letter` matches any unicode that represents a letter in any language, so we could write `/p{Letter}` to match these.
 
 ## Object rest and spread properties
 
@@ -31,17 +40,23 @@ let newObj = { ...originalObj, d: '4' };
 newObj; // { a: '1', b: '2', c: '3', d: '4' }
 ```
 
+You may have seen this used in frontend frameworks that copy or update data/state objects that do something along the lines of this;
+
+```javascript
+let newState = { ...oldState, new: 'thing' };
+```
+
 ## Promise finally
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/finally)
 
-In addition to `.catch()` and `.then()`, to avoid duplicate code inside these handlers, we now have access to `.finally()` which returns a promise and takes a callback function.
+In addition to `.catch()` and `.then()`, to avoid duplicate code inside these handlers, we now have access to `.finally()` which returns a promise and takes a callback function that executes when the promise is fulfilled _or_ rejected.
 
 ```javascript
 fetch('http://somesite.com')
     .then((data) => console.log(data))
     .catch((error) => console.log(error))
-    .finally(() => console.log('Done!'));
+    .finally(() => console.log('Either resolved OR rejected!'));
 ```
 
 ## Asynchronous iteration

@@ -2,9 +2,11 @@
 
 ## Intro
 
-This is a guide I have wrote for myself (and for anyone else) that introduces features of the various ECMAScript versions since ECMAScript 2015, with some useful links and examples. The more notable features are marked with a `!!` to be easily searchable.
+This is a guide I have wrote for myself (and for anyone else) that goes over every new feature of JS starting from ECMAScript2015. This has allowed me to get a good understanding of powerful new features in JS and acts as a guide I can refer to.
 
-Iterations are divided into separate files
+The more notable features are marked with a `!!!` to be easily searchable. I went with three `!` as to not be confused with JS's 'bang bang' operator 🔫.
+
+Released ECMAScript iterations are divided into separate files
 You can find them here:
 
 1. [ECMAScript 2015 (ES6)](./ES6.md)
@@ -16,7 +18,7 @@ You can find them here:
 
 ## Resources
 
-This guide has been compiled from a number of resources listed below
+This guide has used a number of resources as references, listed below;
 
 -   [Mozilla Development Network](https://developer.mozilla.org/en-US/)
 -   [FreeCodeCamp](https://www.freecodecamp.org/)
