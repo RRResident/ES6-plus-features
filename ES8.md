@@ -26,7 +26,7 @@ const someObj = { a: 1, b: 2, c: 3 };
 Object.entries(someObj); // [[a, '1'], ['b', 2], ['c', 3]]
 ```
 
-This makes it useful for looping over both using something like the below:
+This makes it useful for looping over both keys and values as arrays have built in iterators:
 
 ```javascript
 for (let [key, value] of Object.entries(someObj)) {
@@ -89,7 +89,7 @@ This is simply a change to function parameter syntax, you are now allowed to hav
 function trailingCommas(
     arg1,
     arg2,
-    arg3 // A comma here won't error
+    arg3, // A comma here is now valid even without something after it
 ) {}
 ```
 

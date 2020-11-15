@@ -12,7 +12,7 @@ someVal = 456; // error
 const someVal = 789; // error
 ```
 
-`const` will make sure you don't change the type of data you declare initially, but you can mutate data like objects and arrays, this is valid.
+`const` will make sure you don't change the type of data you declare initially, but you can mutate data inside of objects and arrays, this is valid.
 
 ```javascript
 const someArr = [];
@@ -86,7 +86,7 @@ function normalFunc(num) {
 The same function as an arrow function
 
 ```javascript
-const arrowFunc = (num) => num + 1; // return keyword omitted
+const arrowFunc = num => num + 1; // return keyword omitted
 ```
 
 Arrow functions do not have its own bindings to a number of keywords in JS; `this`, `arguments`, `super`, or `new.target`, so they wouldn't be useful as methods for objects.
@@ -106,7 +106,7 @@ function f(a, b, c) {
 }
 ```
 
-ES6 introduced the functionality to just pass this into the function like so:
+ES6 introduced the functionality to just pass this into the function's parameters like so:
 
 ```javascript
 function f(a = 1, b, c) {
@@ -172,7 +172,7 @@ const htmlBlock = `
 You can also use them to access raw strings like so;
 
 ```javascript
-console.log(String.raw`hello\nnot a newline`); // hellonot a newline
+console.log(String.raw`hello\nnot a newline`); // hello\nnot a newline
 ```
 
 ## Enhanced object properties
@@ -183,7 +183,7 @@ Short syntax for object properties if you're setting it to a value with the same
 const num = 1;
 const str = 'abc';
 
-const obj = { num, str }; // Instead of num: num, str: str
+const obj = { num, str }; // Instead of {num: num, str: str}
 ```
 
 Adding methods/functions to objects now omits the `function` keyword when defining the object.
@@ -275,7 +275,7 @@ class User {
         this.email = email;
     }
 
-    someMethod: () => {};
+    someMethod() {};
 }
 ```
 
@@ -327,7 +327,7 @@ addProp(obj, somePropSymbol2, 44);
 // obj: {Symbol(): 32, Symbol(): 44}
 ```
 
-Whilst `Object.keys` won't return our `Symbol` properties, someone could still access it with `Reflect.ownKeys`, so it isn't truely private perse, but it will always be unique in an object / class.
+Whilst `Object.keys` won't return our `Symbol` properties (it would return an emtpy array), someone could still access it with `Reflect.ownKeys`, so it isn't truely private perse, but it will always be unique in an object / class.
 
 ## Iterators and generators
 
@@ -390,7 +390,7 @@ A map object, like normal objects, holds key-value pairs and remembers the order
 ```javascript
 const mapObj = new Map();
 mapObj.set(Symbol(), 1);
-map.Obj.set({ keyName: 'key' }, 'value'); // this key is an object, invalid for regular objects
+map.Obj.set({ keyName: 'key' }, 'value'); // this key is an object, invalid for regular objects, but valid for maps
 ```
 
 ## Weakset and Weakmap (data structure)
@@ -458,9 +458,8 @@ dest.prop4; // "c"
 `Array.prototype.find()` and `Array.prototype.findIndex()` are two new functions to find elements in arrays. `Array.prototype.find()` returns the value of the first element in the array that satisfies the testing function. `Array.prototype.findIndex()` will return the value's index.
 
 ```javascript
-[1, 3, 4, 2]
-    .find((x) => x > 3) // 4
-    [(1, 3, 4, 2)].findIndex((x) => x > 3); // 2
+[1, 3, 4, 2].find((x) => x > 3) // 4
+[1, 3, 4, 2].findIndex((x) => x > 3); // 2
 ```
 
 #### String.prototype.repeat()
@@ -474,7 +473,7 @@ yo.repeat(5); // yo yo yo yo yo
 
 #### String substring methods
 
-5 new methods for strings that allow searching for substrings. These string methods are all self explanatory, the optional argument is the position in the string to start searching.
+3 new methods for strings that allow searching for substrings. These string methods are all self explanatory, the optional argument is the position in the string to start searching.
 
 ```javascript
 'hello'.startsWith('ello', 1); // true
@@ -490,7 +489,7 @@ yo.repeat(5); // yo yo yo yo yo
 
 #### Number.isSafeInteger()
 
-`Number.isSafeInteger()` is a method that determines whether the provided value is a number that is a 'safe' integer (hence the name), this mean it can:
+`Number.isSafeInteger()` is a method that determines whether the provided value is a number that is a 'safe' integer (hence the name), this means it can:
 
 -   be exactly represented as an IEEE-754 double precision number
     and its
@@ -531,6 +530,8 @@ Promises are a powerful and complex tool in JavaScript, and are especially usefu
 fetch('http://www.someurl.com') // after a delay, data returns
     .then(doSomethingWithReturnedData) // if successful, pass to this function
     .catch(logErrorMessage); // if failed, do something with the error
+
+// Code after the fetch will not have to wait for the above functionality to finish, the code passed to then and catch are added onto a separate call stack
 ```
 
 These are simplifed examples, `then`s can be chained to allow for a lot of functionality to run on resolve/reject cases of a promise.
@@ -623,7 +624,6 @@ There are many methods for the `Reflect` object, read the documentation for a fu
 There is now an object `Intl` which provides language sensitive string comparison, number formatting, and date and time formatting. The new constructors are:
 `Intl.Collator`
 `Intl.NumberFormat`
-`Intl.NumberFormat`
 `Intl.DateTimeFormat`
 An example of something you can do with this:
 
@@ -683,6 +683,9 @@ let string2 = '\u006E\u0303';
 
 console.log(string1); //  ñ
 console.log(string2); //  ñ
+
+string1 === string2 // false
+string1.normalize() === string2.normalize() // true
 ```
 
 `nomalize()` takes a form parameter and will normalize the unicode string to the specified form.

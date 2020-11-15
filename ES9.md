@@ -87,4 +87,7 @@ const asyncIterable = {
         console.log(user);
     }
 })();
+// Ross
+// Miyamoto
+// Pauline
 ```
